@@ -1,0 +1,1974 @@
+//MOVEMENT FUNCTIONS
+
+function moveUp() { 
+
+	let m = document.getElementById("message");
+	let heroId = helpMap.heroPosition;
+
+	let upperFieldId = helpMap.fields[hero.positionNumber-16];
+	let upperField = document.getElementById(upperFieldId);
+
+	if (hero.movement < 1){
+		m.textContent = "You cannot move anymore!";
+	}else{
+
+		if (hero.positionNumber < 16 || upperField.className == "wall" || upperField.className == "door" || upperField.className == "tunnelvertical" || upperField.className == "tunnelhorizontal" || upperField.className == "forrest"){
+			m.textContent = "You cannot move up!";
+			if(upperField.className == "tunnelvertical"){
+				m.textContent = "Only Goblins can use these small tunnels";	
+			}
+			} else {
+			if (upperField.className == "goblin" || upperField.className == "lich" || upperField.className == "goblinArcher"){	
+					reduceMovement();
+					reduceLife();
+					m.textContent = "You run into the knife? -1 life";
+					let audioMove2 = new Audio('hero-move.mp3');
+					let audioRunIntoTheKnife = new Audio('hero-runIntoTheKnife.mp3');
+					audioMove2.play();
+					audioRunIntoTheKnife.play();
+					waitForOkay();
+					return;
+				}else{	
+					if(hero.sick == true){
+						reduceLife();
+						hero.sicknessCounter = hero.sicknessCounter +1;
+						m.textContent = "You feel your strength fading with every move, -1 life";
+						let audioMove3 = new Audio('hero-move.mp3');
+						audioMove3.play();
+						let audioFeverMove = new Audio('hero-feverMove.mp3');	
+						audioFeverMove.play();
+					}else{
+						m.textContent = "You moved! -1 movement points";
+						let audioMove = new Audio('hero-move.mp3');
+						audioMove.play();
+	
+						reduceMovement();
+					}
+					let oldField = document.getElementById(heroId);
+					oldField.className = "light";
+					if(dungeon.mapPointer == 4){
+						oldField.className = "blind";
+					}
+					let x = helpMap.fields.indexOf(helpMap.heroPosition)-16;
+					heroId = helpMap.fields[x];
+					let newField = document.getElementById(heroId);
+					newField.className = "hero";
+					if(dungeon.mapPointer == 4){
+						newField.className = "heroDark";
+					}
+					if(hero.life == 0){
+						newField.className = "dead";	
+						m.textContent = "Your lifeless body sinks to the ground...GAME OVER!";
+					}
+					helpMap.heroPosition = heroId;
+					hero.positionNumber = hero.positionNumber -16;
+				}
+			}
+	}
+};
+
+function moveDown() { 
+
+	let m = document.getElementById("message");
+	let heroId = helpMap.heroPosition;
+
+	let lowerFieldId = helpMap.fields[hero.positionNumber+16];
+	let lowerField = document.getElementById(lowerFieldId);
+
+	if (hero.movement < 1){
+		m.textContent = "You cannot move anymore!";
+	}else{
+
+		if (hero.positionNumber > 111 || lowerField.className == "wall" || lowerField.className == "door" || lowerField.className == "tunnelvertical" || lowerField.className == "tunnelhorizontal" || lowerField.className == "forrest"){
+		m.textContent = "You cannot move down!";
+		if(lowerField.className == "tunnelvertical"){
+			m.textContent = "Only Goblins can use these small tunnels";	
+		}
+		} else {
+			if (lowerField.className == "goblin" || lowerField.className == "lich" || lowerField.className == "goblinArcher"){
+					reduceMovement();
+					reduceLife();
+					m.textContent = "You run into the knife? -1 life";
+					let audioMove2 = new Audio('hero-move.mp3');
+					let audioRunIntoTheKnife = new Audio('hero-runIntoTheKnife.mp3');
+					audioMove2.play();
+					audioRunIntoTheKnife.play();
+					waitForOkay();
+					return;
+				}else{	
+					if(hero.sick == true){
+						reduceLife();
+						hero.sicknessCounter = hero.sicknessCounter +1;
+						m.textContent = "You feel your strength fading with every move, -1 life";
+						let audioMove3 = new Audio('hero-move.mp3');
+						audioMove3.play();
+						let audioFeverMove = new Audio('hero-feverMove.mp3');	
+						audioFeverMove.play();
+					}else{
+						m.textContent = "You moved! -1 movement points";
+						let audioMove = new Audio('hero-move.mp3');
+						audioMove.play();
+	
+						reduceMovement();
+					}
+					let oldField = document.getElementById(heroId);
+					oldField.className = "light";
+					if(dungeon.mapPointer == 4){
+						oldField.className = "blind";
+					}
+					let x = helpMap.fields.indexOf(helpMap.heroPosition)+16;
+					heroId = helpMap.fields[x];
+					let newField = document.getElementById(heroId);
+					newField.className = "hero";
+					if(dungeon.mapPointer == 4){
+						newField.className = "heroDark";
+					}
+					if(hero.life == 0){
+						newField.className = "dead";	
+						m.textContent = "Your lifeless body sinks to the ground, GAME OVER!";
+					}
+					helpMap.heroPosition = heroId;
+					hero.positionNumber = hero.positionNumber +16;
+				}
+			}
+	}
+};
+
+function moveLeft() {
+
+	let m = document.getElementById("message");
+	let heroId = helpMap.heroPosition;
+
+	let leftFieldId = helpMap.fields[hero.positionNumber-1];
+	let leftField = document.getElementById(leftFieldId);
+
+	if (hero.movement < 1){
+		m.textContent = "You cannot move anymore!";
+	}else{
+
+		if (hero.positionNumber % 16 == 0 || leftField.className == "wall" || leftField.className == "door" || leftField.className == "tunnelhorizontal" || leftField.className == "tunnelvertical" || leftField.className == "forrest"){
+			m.textContent = "You cannot move to the left!";
+			if(leftField.className == "tunnelhorizontal"){
+				m.textContent = "Only Goblins can use these small tunnels";	
+			}
+		} else {
+			if (leftField.className == "goblin" || leftField.className == "lich" || leftField.className == "goblinArcher"){
+					reduceMovement();
+					reduceLife();
+					m.textContent = "You run into the knife? -1 life";
+					let audioMove2 = new Audio('hero-move.mp3');
+					let audioRunIntoTheKnife = new Audio('hero-runIntoTheKnife.mp3');
+					audioMove2.play();
+					audioRunIntoTheKnife.play();
+					waitForOkay();
+					return;
+				}else{	
+					if(hero.sick == true){
+						reduceLife();
+						hero.sicknessCounter = hero.sicknessCounter +1;
+						m.textContent = "You feel your strength fading with every move, -1 life";
+						let audioMove3 = new Audio('hero-move.mp3');
+						audioMove3.play();
+						let audioFeverMove = new Audio('hero-feverMove.mp3');	
+						audioFeverMove.play();
+					}else{
+						m.textContent = "You moved! -1 movement points";
+						let audioMove = new Audio('hero-move.mp3');
+						audioMove.play();
+	
+						reduceMovement();
+					}
+					let oldField = document.getElementById(heroId);
+					oldField.className = "light";
+					if(dungeon.mapPointer == 4){
+						oldField.className = "blind";
+					}
+					let x = helpMap.fields.indexOf(helpMap.heroPosition)-1;
+					heroId = helpMap.fields[x];
+					let newField = document.getElementById(heroId);
+					newField.className = "hero";
+					if(dungeon.mapPointer == 4){
+						newField.className = "heroDark";
+					}
+					if(hero.life == 0){
+						newField.className = "dead";	
+						m.textContent = "Your lifeless body sinks to the ground, GAME OVER!";
+					}
+					helpMap.heroPosition = heroId;
+					hero.positionNumber = hero.positionNumber -1;
+				}
+			}
+	}
+};
+
+function moveRight() {
+
+	let m = document.getElementById("message");
+	let heroId = helpMap.heroPosition;
+
+	let rightFieldId = helpMap.fields[hero.positionNumber+1];
+	let rightField = document.getElementById(rightFieldId);
+
+	if (hero.movement < 1){
+		m.textContent = "You cannot move anymore!";
+	}else{
+
+		if (hero.positionNumber % 16 == 15 || rightField.className == "wall" || rightField.className == "door" || rightField.className == "tunnelhorizontal" || rightField.className == "tunnelvertical" || rightField.className == "forrest"){
+			m.textContent = "You cannot move to the right!";
+			if(rightField.className == "tunnelhorizontal"){
+				m.textContent = "Only Goblins can use these small tunnels";	
+			}
+		} else {	
+			if (rightField.className == "goblin" || rightField.className == "lich" || rightField.className == "goblinArcher"){	
+					reduceMovement();
+					reduceLife();
+					m.textContent = "You run into the knife? -1 life";
+					let audioMove2 = new Audio('hero-move.mp3');
+					let audioRunIntoTheKnife = new Audio('hero-runIntoTheKnife.mp3');
+					audioMove2.play();
+					audioRunIntoTheKnife.play();
+					waitForOkay();
+					return;
+				}else{	
+					if(hero.sick == true){
+						reduceLife();
+						hero.sicknessCounter = hero.sicknessCounter +1;
+						m.textContent = "You feel your strength fading with every move, -1 life";
+						let audioMove3 = new Audio('hero-move.mp3');
+						audioMove3.play();
+						let audioFeverMove = new Audio('hero-feverMove.mp3');	
+						audioFeverMove.play();
+					}else{
+						m.textContent = "You moved! -1 movement points";
+						let audioMove = new Audio('hero-move.mp3');
+						audioMove.play();
+	
+						reduceMovement();
+					}
+					let oldField = document.getElementById(heroId);
+					oldField.className = "light";
+					if(dungeon.mapPointer == 4){
+						oldField.className = "blind";
+					}
+					let x = helpMap.fields.indexOf(helpMap.heroPosition)+1;
+					heroId = helpMap.fields[x];
+					let newField = document.getElementById(heroId);
+					newField.className = "hero";
+					if(dungeon.mapPointer == 4){
+						newField.className = "heroDark";
+					}
+					if(hero.life == 0){
+						newField.className = "dead";
+						m.textContent = "Your lifeless body sinks to the ground, GAME OVER!";	
+					}
+					helpMap.heroPosition = heroId;
+					hero.positionNumber = hero.positionNumber +1;
+				}
+			}
+	}
+};
+
+function test(){
+	let m = document.getElementById("message");
+	if (dungeon.heroActions < 1){
+		m.textContent = "You cannot do more!";
+		}else{
+			//const goblin2 = new Goblin(999);
+			//dungeon.monsterList.push(goblin2);
+			//m.textContent = "Oh no, another Goblin!";
+			//const lich2 = new Lich(87);
+			//dungeon.monsterList.push(lich2);
+			//dungeon.heroActions = dungeon.heroActions -1;
+			//if (dungeon.heroActions < 1 && dungeon.heroMovement <1){
+			//	deactivateButtons();
+			//}
+			let audioBoing = new Audio('boing.mp3');
+			audioBoing.play();
+			m.textContent = "boing!";
+		}
+};
+
+
+
+function music(){
+	switch(dungeon.music) {
+		case 1:
+			dungeon.audio1.play();
+			dungeon.audio1.loop=true;
+			dungeon.music = dungeon.music +1;
+			break;
+		case 2:
+			dungeon.audio1.pause();
+			dungeon.audio1.currentTime = 0;
+			dungeon.audio2.play();
+			dungeon.audio2.loop=true;
+			dungeon.music = dungeon.music +1;
+			break;
+		case 3:
+			dungeon.audio2.pause();
+			dungeon.audio2.currentTime = 0;
+			dungeon.audio3.play();
+			dungeon.audio3.loop=true;
+			dungeon.music = dungeon.music +1;
+			break;
+		case 4:
+			dungeon.audio3.pause();
+			dungeon.audio3.currentTime = 0;
+			dungeon.audio4.play();
+			dungeon.audio4.loop=true;
+			dungeon.music = dungeon.music +1;
+			break;
+		case 5:
+			dungeon.audio4.pause();
+			dungeon.audio4.currentTime = 0;
+			dungeon.audio5.play();
+			dungeon.audio5.loop=true;
+			dungeon.music = dungeon.music +1;
+			break;
+		case 6:
+			dungeon.audio5.pause();
+			dungeon.audio5.currentTime = 0;
+			dungeon.audio6.play();
+			dungeon.audio6.loop=true;
+			dungeon.music = dungeon.music +1;
+			break;
+		case 7:
+			dungeon.audio6.pause();
+			dungeon.audio6.currentTime = 0;
+			dungeon.audio7.play();
+			dungeon.audio7.loop=true;
+			dungeon.music = dungeon.music +1;
+			break;
+		case 8:
+			dungeon.audio7.pause();
+			dungeon.audio7.currentTime = 0;
+			dungeon.music = 1;
+			break;
+	}
+	return;
+};
+
+
+//DUNGEON OBJECT HOLDING GENERAL STATUS INFORMATION AND HANDLING MAP AND GAME CHANGES
+
+const dungeon = {};
+	dungeon.heroActions = 1;
+	dungeon.heroMovement = 1;
+	dungeon.masterTurn = false;
+	dungeon.masterPause = true;
+	dungeon.monsterList = [];
+	dungeon.reserveMonsterList = [];
+	dungeon.monsterOnTurn = 0; //which monster is on turn
+	dungeon.monsterActionCounter = 0; //what action as the monster on turn at right now
+	dungeon.dicePointer = 1;
+	dungeon.start = false;
+	dungeon.intro = true;
+	dungeon.monsterComingAfterYouCounter = 0;     //if monsterReserveList is not empty when entering a new room, this counter will be set to 4
+	dungeon.music = 1;
+
+	dungeon.audio1 = new Audio('1.mp3');
+	dungeon.audio2 = new Audio('2.mp3');
+	dungeon.audio3 = new Audio('3.mp3');
+	dungeon.audio4 = new Audio('4.mp3');
+	dungeon.audio5 = new Audio('5.mp3');
+	dungeon.audio6 = new Audio('6.mp3');
+	dungeon.audio7 = new Audio('7.mp3');
+
+	dungeon.mapPointer = 1;
+	dungeon.doorPosition = 110;
+	dungeon.reserveFieldPosition = [0,0,0,0,0,0];
+
+	dungeon.fakeEndTurn = false;
+	dungeon.checkPoint1 = false;
+
+	dungeon.view = "backgroundClean.gif";
+	dungeon.viewAltered = false;
+
+//monster and dungeon Sounds
+	dungeon.audioGoblinHit = new Audio('goblin-hit.mp3');
+	dungeon.audioGoblinHit2 = new Audio('goblin-hit2.mp3');
+	dungeon.audioGoblinMisses = new Audio('goblin-misses.mp3');
+	dungeon.audioGoblinMisses2 = new Audio('goblin-misses2.mp3');
+	dungeon.audioLichNecromanticFever = new Audio('lich-necromanticFever.mp3');
+	dungeon.audioLichNecromanticFever2 = new Audio('lich-necromanticFever2.mp3');
+	dungeon.audioLichDeathmove = new Audio('lich-deathmove.mp3');
+	dungeon.audioLichMove = new Audio('lich-move.mp3');
+	dungeon.audioLichTelekinesis = new Audio('lich-telekinesis.mp3');
+	dungeon.audioLichMagicBolt = new Audio('lich-magicBolt.mp3');
+	dungeon.audioLichMisses = new Audio('lich-misses.mp3');
+
+	dungeon.audioDoorWood = new Audio('door-wood.mp3');
+	dungeon.audioDead = new Audio('dead.mp3');
+
+
+//HERO OBJECT HOLDING HERO STATS
+
+const hero = {};
+	hero.positionNumber = 2;
+	hero.movement = 6;
+	hero.maximumMovement = 6;
+	hero.life = 8;
+	hero.strength = 3;
+	hero.Mana = 3;
+	hero.weapon = 4;
+	hero.armor = 2;
+
+	hero.sick = false;
+	hero.sicknessCounter = 0;
+
+//Hero Sounds
+	hero.audioMisses = new Audio('hero-misses.mp3');
+	hero.audioMisses2 = new Audio('hero-misses2.mp3');
+	hero.audioHit = new Audio('hero-hit.mp3');
+	hero.audioHit2 = new Audio('hero-hit2.mp3');
+	hero.audioCriticalHit = new Audio('hero-criticalHit.mp3');
+	hero.audioTeleport = new Audio('hero-teleport.mp3');
+
+
+function magic(){
+	teleport();
+}
+
+function teleport(){
+	let m = document.getElementById("message");
+	let possible = false;
+	if (dungeon.heroActions > 0 && hero.Mana > 1){
+		possible = true;
+	}
+	if (dungeon.monsterList.length == 0 && hero.Mana > 1){
+		possible = true;
+		if(dungeon.monsterComingAfterYouCounter > 1){
+			dungeon.monsterComingAfterYouCounter = 	dungeon.monsterComingAfterYouCounter - 1;
+			if(dungeon.monsterComingAfterYouCounter == 1){
+				dungeon.monsterComingAfterYouCounter = 0;
+				pushReserveList();
+				let m = document.getElementById("message");
+				m.textContent = "some goblins were following you...";
+			}
+		}
+	}
+	if (possible == true){			
+		let heroId = helpMap.heroPosition;
+		let oldField = document.getElementById(heroId);
+		let obstacle = true;
+		let teleportNumber = hero.positionNumber;
+		let randomFieldId = heroId;
+		let randomField = document.getElementById(randomFieldId);
+		failureCounter = 1;
+		while (obstacle == true && failureCounter < 128){
+			let diceNumber = rollDice();
+			teleportNumber = diceNumber * (hero.positionNumber+1) % 127;
+			randomFieldId = helpMap.fields[teleportNumber];
+			randomField = document.getElementById(randomFieldId);
+			let distance1 = teleportNumber % 16 - hero.positionNumber % 16;
+			let distance2 = Math.round(teleportNumber / 16) - Math.round(hero.positionNumber /16);
+			if(distance1 < 0){
+				distance1 = distance1 * (-1);
+			}
+			if(distance2 < 0){
+				distance2 = distance2 * (-1);
+			}
+			let distance3 = distance1 + distance2;
+			if(randomField.className == "light" && distance3 > 4){
+				obstacle = false;
+			}else{
+				failureCounter = failureCounter +1;
+			}
+		}
+		oldField.className = "light";
+		randomField.className = "hero";
+		if(failureCounter > 127){
+			m.textContent = "The teleport spell failed this time!";
+		}else{
+			m.textContent = "You teleported yourself, -2 mana";
+			hero.audioTeleport.play();
+			hero.positionNumber = teleportNumber;
+			helpMap.heroPosition = randomFieldId;
+			reduceMana(2);
+			dungeon.heroActions = dungeon.heroActions -1;
+			if (dungeon.heroActions < 1 && dungeon.heroMovement <1){
+				deactivateButtons();
+			}
+		}
+	}else{
+		m.textContent = "You cannot do magic right now!";
+	}
+};
+
+
+function attack(){
+	let m = document.getElementById("message");
+
+	if (dungeon.monsterList.length == 0){	
+		m.textContent = "You cannot attack right now!";
+		return;
+	}
+
+	if (dungeon.heroActions > 0){
+		let victim = dungeon.monsterList[0];
+		let monsterFound = false;
+		let combatFields = combatFieldsCreator();
+		let index = 0;
+		for(j=0; j<dungeon.monsterList.length; j++){
+			for(i=0; i<combatFields.length; i++){
+				if(dungeon.monsterList[j].type == 1 && helpMap.fields.indexOf(combatFields[i]) == dungeon.monsterList[j].position){
+				victim = dungeon.monsterList[j];
+				monsterFound = true;
+				index = j;
+				}
+			}
+		}
+		if(monsterFound == false){
+			for(j=0; j<dungeon.monsterList.length; j++){
+				for(i=0; i<combatFields.length; i++){
+					if(dungeon.monsterList[j].type == 2 && helpMap.fields.indexOf(combatFields[i]) == dungeon.monsterList[j].position){
+					victim = dungeon.monsterList[j];
+					monsterFound = true;
+					index = j;
+					}
+				}
+			}
+		}
+		if(monsterFound == true){
+			let m = document.getElementById("message");
+			let diceNumber = rollDice();
+			let criticalHit = 0;
+			if(diceNumber == 0){
+				m.textContent = "Your attack failed miserably!";
+				hero.audioMisses.play();
+				hero.audioMisses2.play();
+			}else{
+				if(diceNumber/2 + hero.strength - victim.armor > 0 || diceNumber == 9){
+					let diceNumber2 = rollDice();
+					if(diceNumber == 9){
+						criticalHit = 1;
+						diceNumber2 = 9;
+					}
+					let lifeLost = (diceNumber2 + hero.weapon)/4;
+					if(lifeLost < 1){
+						victim.life = victim.life - 1;
+						m.textContent = "You hit " + victim.name +  " and took 1 lifepoint";
+						hero.audioHit.play();
+						hero.audioHit2.play();
+					}else{
+						lifeLost = Math.round(lifeLost) + criticalHit;
+						victim.life = victim.life - lifeLost;
+						m.textContent = "You hit " + victim.name +  " and took " + lifeLost + " life";
+						hero.audioHit.play();
+						hero.audioHit2.play();
+						if(criticalHit == 1){
+							m.textContent = "You landed a critical hit on " + victim.name +  " and took " + lifeLost + " life";
+							hero.audioCriticalHit.play();
+							hero.audioHit2.play();
+						}
+					}
+				}else{
+					m.textContent = "Your attack missed!";
+					hero.audioMisses.play();
+					hero.audioMisses2.play();
+				}
+			}
+			if(victim.life < 1){
+				if(victim.type == 2){
+					hero.sick = false;
+					let p = document.getElementById("portrait");
+					p.src = "characterPortraitSmall.gif";
+					hero.life = hero.life + 1 + Math.round(hero.sicknessCounter/2);
+					reduceLife();
+				}
+				m.textContent = "You killed " + victim.name;
+				let monsterId = helpMap.fields[victim.position];
+				let emptyEnemyField = document.getElementById(monsterId);
+				if(victim.type ==1){
+					emptyEnemyField.className = "goblinDead";
+				}else{
+					emptyEnemyField.className = "lichDead";
+				}
+				eliminate(index);
+			}
+			dungeon.heroActions = dungeon.heroActions -1;
+			if (dungeon.heroActions < 1 && dungeon.heroMovement <1){
+				deactivateButtons();
+			}
+		} else {
+		m.textContent = "You cannot attack right now!";
+		}			
+	} else {
+		m.textContent = "You cannot attack right now!";
+	}
+};
+
+
+/*
+function door(){
+	let m = document.getElementById("message");
+	if (hero.positionNumber == 2 && dungeon.heroActions > 0 && dungeon.door == true){
+		dungeon.door = false;
+		dungeon.monsterList = [];
+		m.textContent = "You opened the door!";
+		let doorField = document.getElementById("a018");
+		doorField.className = "light";
+		const goblin1 = new Goblin(999);
+		dungeon.monsterList.push(goblin1);
+		const lich1 = new Lich(93);
+		dungeon.monsterList.push(lich1);
+	}else{
+		m.textContent = "You cannot open any door right now!";
+	}
+};
+*/
+
+function door(){
+	let m = document.getElementById("message");
+	if (hero.positionNumber == dungeon.doorPosition && dungeon.heroActions > 0){
+		m.textContent = "You entered the next room!";
+		dungeon.audioDoorWood.play();
+		switch(dungeon.mapPointer) {
+			case 1:
+			mapBuilder2();
+			dungeon.mapPointer = 2;
+			let p = document.getElementById("view");
+			p.src = dungeon.view;
+			break;
+
+			case 2:
+			mapBuilder3();
+			dungeon.mapPointer = 3;
+			break;
+
+			case 3:
+			mapBuilder4();
+			dungeon.mapPointer = 4;
+			let p4 = document.getElementById("view");
+			p4.src = "backgroundDark.gif";
+			break;
+
+			case 4:
+			mapBuilder5();
+			dungeon.mapPointer = 5;
+			break;
+			
+			case 5:
+			mapBuilder6();
+			dungeon.mapPointer = 6;
+			break;
+		}
+	}else{
+		m.textContent = "You cannot open any door right now!";
+	}
+};
+
+
+//HELP MAP TO NAVIGATE MOVEMENTS ETC. AFTER THE REAL MAPS ARE LOADED
+const helpMap = {};
+	helpMap.fields = ["a000","a001","a002","a003","a004","a005","a006","a007","a008","a009","a010","a011","a012","a013","a014","a015",
+		"a016","a017","a018","a019","a020","a021","a022","a023","a024","a025","a026","a027","a028","a029","a030","a031",
+		"a032","a033","a034","a035","a036","a037","a038","a039","a040","a041","a042","a043","a044","a045","a046","a047",
+		"a048","a049","a050","a051","a052","a053","a054","a055","a056","a057","a058","a059","a060","a061","a062","a063",
+		"a064","a065","a066","a067","a068","a069","a070","a071","a072","a073","a074","a075","a076","a077","a078","a079",
+		"a080","a081","a082","a083","a084","a085","a086","a087","a088","a089","a090","a091","a092","a093","a094","a095",
+		"a096","a097","a098","a099","a100","a101","a102","a103","a104","a105","a106","a107","a108","a109","a110","a111",
+		"a112","a113","a114","a115","a116","a117","a118","a119","a120","a121","a122","a123","a124","a125","a126","a127"];
+	helpMap.heroPosition = helpMap.fields[hero.positionNumber];
+	
+
+
+
+//MAP OBJECT
+
+dungeon.map1 = ["forrest","forrest","forrest","light","light","light","light","light","light","light","wall","wall","wall","wall","wall","wall",
+"forrest","forrest","light","light","light","light","light","wall","light","light","light","wall","wall","wall","wall","wall",
+"forrest","forrest","light","light","light","light","light","light","light","light","light","light","wall","wall","wall","wall",
+"forrest","forrest","light","light","hero","light","light","light","light","light","light","light","light","wall","wall","wall",
+"forrest","light","light","light","light","light","light","light","light","light","light","light","light","light","door","wall",
+"forrest","forrest","light","light","light","light","light","light","light","light","light","light","light","wall","wall","wall",
+"forrest","forrest","light","light","light","light","light","wall","light","light","light","light","wall","wall","wall","wall",
+"forrest","forrest","forrest","forrest","light","light","light","light","light","light","light","wall","wall","wall","wall","wall",]
+
+dungeon.map2 = ["wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall",
+"wall","wall","light","light","light","light","light","light","light","light","light","light","light","wall","wall","wall",
+"wall","light","light","light","light","wall","light","light","light","light","wall","light","light","gravel","wall","wall",
+"hero","light","light","light","light","light","light","sack","sack","light","light","light","light","gravel","gravel","wall",
+"light","light","light","light","light","light","light","sack","light","light","light","light","light","light","light","wall",
+"wall","light","light","light","light","wall","light","light","light","light","wall","light","light","light","wall","wall",
+"wall","wall","light","light","light","light","light","light","light","light","light","gravel","gravel","wall","wall","wall",
+"wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","door","wall","wall","wall"]
+
+dungeon.map3 = ["wall","wall","hero","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall",
+"wall","light","light","light","light","light","light","tunnelhorizontal","light","light","light","wall","light","light","light","wall",
+"wall","light","light","light","light","light","light","wall","light","light","light","light","light","light","light","wall",
+"wall","light","light","light","light","light","light","wall","light","light","light","light","light","light","wall","wall",
+"wall","light","light","wall","wall","wall","wall","wall","light","light","light","light","light","light","wall","wall",
+"wall","light","light","light","light","wall","light","light","light","light","light","light","light","light","light","wall",
+"wall","light","light","light","light","light","light","wall","light","light","light","wall","light","light","light","wall",
+"wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","door","wall"]
+
+dungeon.map4 = ["darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall",
+"darkWall","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","darkWall",
+"darkWall","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","darkWall",
+"heroDark","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","darkWall",
+"darkWall","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","darkWall",
+"darkWall","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","darkWall",
+"darkWall","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","blind","darkWall",
+"darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall","darkWall"]
+
+//MAP FUNCTIONS FOR MAP CREATION
+
+function mapBuilder1(){	
+
+	dungeon.monsterList = [];
+	hero.positionNumber = 52;
+	helpMap.heroPosition = helpMap.fields[hero.positionNumber];
+
+	for(i=0;i<128;i++){
+		let currentFieldId = helpMap.fields[i];
+		let currentField = document.getElementById(currentFieldId);
+		currentField.className = dungeon.map1[i];
+	}
+	dungeon.doorPosition = 77;
+};
+
+function mapBuilder2(){	
+
+	dungeon.monsterList = [];
+	hero.positionNumber = 48;
+	helpMap.heroPosition = helpMap.fields[hero.positionNumber];
+
+	for(i=0;i<128;i++){
+		let currentFieldId = helpMap.fields[i];
+		let currentField = document.getElementById(currentFieldId);
+		currentField.className = dungeon.map2[i];
+	}
+	dungeon.doorPosition = 108;
+	const goblin1 = new GoblinArcher(999);
+	dungeon.monsterList.push(goblin1);
+};
+
+function mapBuilder3(){
+	if(dungeon.monsterList.length > 0 || dungeon.reserveMonsterList > 0){
+		dungeon.monsterComingAfterYouCounter = 4;
+		dungeon.reserveMonsterList = dungeon.monsterList.concat(dungeon.reserveMonsterList);
+	}
+	dungeon.monsterList = [];
+	hero.positionNumber = 2;
+	helpMap.heroPosition = helpMap.fields[hero.positionNumber];
+	dungeon.reserveFieldPosition[0] = 2;
+	dungeon.reserveFieldPosition[5] = 3;
+
+	for(i=0;i<128;i++){
+		let currentFieldId = helpMap.fields[i];
+		let currentField = document.getElementById(currentFieldId);
+		currentField.className = dungeon.map3[i];
+	}
+	dungeon.doorPosition = 110;
+	const goblin2 = new Goblin(999);
+	dungeon.monsterList.push(goblin2);
+	const lich1 = new Lich(93);
+	dungeon.monsterList.push(lich1);
+};
+
+function mapBuilder4(){
+
+	dungeon.monsterComingAfterYouCounter = 0;
+	dungeon.reserveMonsterList = [];
+	dungeon.monsterList = [];
+	hero.positionNumber = 48;
+	helpMap.heroPosition = helpMap.fields[hero.positionNumber];
+
+	for(i=0;i<128;i++){
+		let currentFieldId = helpMap.fields[i];
+		let currentField = document.getElementById(currentFieldId);
+		currentField.className = dungeon.map4[i];
+	}
+	dungeon.doorPosition = 125;
+	const shadow1 = new Shadow(22);
+	dungeon.monsterList.push(shadow1);
+	const shadow2 = new Shadow(93);
+	dungeon.monsterList.push(shadow2);
+	const shadow3 = new Shadow(117);
+	dungeon.monsterList.push(shadow3);
+};
+
+
+//HELP FUNCTIONS TO ALTERATE HERO OR DUNGEON STATS
+
+
+function pushReserveList(){
+	for(i=0;i<dungeon.reserveMonsterList.length;i++){
+		if(dungeon.reserveMonsterList[i].type == 1){
+			dungeon.reserveMonsterList[i].position = dungeon.reserveFieldPosition[i];
+			if(dungeon.reserveFieldPosition[i] == hero.positionNumber){
+				dungeon.reserveMonsterList[i].position = dungeon.reserveFieldPosition[dungeon.reserveFieldPosition.length - 1];
+			}
+			dungeon.monsterList.push(dungeon.reserveMonsterList[i]);
+			let monsterId = helpMap.fields[dungeon.reserveMonsterList[i].position];
+			let monsterField = document.getElementById(monsterId);
+			if(dungeon.reserveMonsterList[i].strength == 1){
+				monsterField.className = "goblinArcher";
+			}else{
+				monsterField.className = "goblin";
+			}
+		}
+	}
+};
+
+
+
+function rollDice(){
+	let old = dungeon.dicePointer + 1;
+	dungeon.dicePointer = ((hero.positionNumber +1 )* old )% 999;
+	let result = dice[dungeon.dicePointer] - 1;
+	return result;
+}
+
+
+
+
+
+
+function reduceMovement() {
+	newMovement = hero.movement -1;
+	let movement = document.getElementById("movement");
+	let text = '\u{25cf}'+"  ";
+	movement.textContent = text.repeat(newMovement);
+	hero.movement = newMovement;
+	if(hero.movement == 0 && dungeon.monsterList.length == 0){
+		refillMovement();
+		if(dungeon.monsterComingAfterYouCounter > 1){
+			dungeon.monsterComingAfterYouCounter = dungeon.monsterComingAfterYouCounter - 1;
+			if(dungeon.monsterComingAfterYouCounter == 1){
+				dungeon.monsterComingAfterYouCounter = 0;
+				pushReserveList();
+				let m = document.getElementById("message");
+				m.textContent = "some goblins were following you...";
+			}
+		}
+	}
+	if (hero.movement < 1){
+		dungeon.heroMovement = dungeon.heroMovement -1;
+		if (dungeon.heroActions < 1 && dungeon.heroMovement <1){
+			deactivateButtons();
+		}
+	}
+	return;	
+};
+
+function refillMovement() {
+	hero.movement = hero.maximumMovement;
+	let movement = document.getElementById("movement");
+	let text = '\u{25cf}'+"  ";
+	movement.textContent = text.repeat(hero.movement);
+	return;
+}
+
+function reduceLife() {
+	newLife = hero.life -1;
+	let life = document.getElementById("life");
+	let text = '\u{25cf}'+"  ";
+	life.textContent = text.repeat(newLife);
+	hero.life = newLife;
+	let m = document.getElementById("message");
+	m.textContent = "You got hit! -1 life";
+	if (hero.life < 1){
+		m.textContent = "GAME OVER";
+		let p = document.getElementById("portrait");
+		p.src = "characterPortraitSmallDead.gif";
+		let heroId = helpMap.heroPosition;
+		let deadField = document.getElementById(heroId);
+		deadField.className = "dead";
+			dungeon.audio1.pause();
+			dungeon.audio2.pause();
+			dungeon.audio3.pause();
+			dungeon.audio4.pause();
+			dungeon.audio5.pause();
+			dungeon.audio6.pause();
+			dungeon.audio7.pause();
+			document.getElementById("buttonMusic").disabled = true;
+			dungeon.audioDead.play();
+			
+		deactivateButtons();
+		document.getElementById("buttonEndTurn").disabled = true;
+		document.getElementById("ok").disabled = true;
+		}
+	return;	
+};
+
+function reduceMana(amount) {
+	newMana = hero.Mana - amount;
+	let mana = document.getElementById("mana");
+	let text = '\u{25cf}'+"  ";
+	mana.textContent = text.repeat(newMana);
+	hero.Mana = newMana;
+	return;	
+};
+
+
+function deactivateButtons(){
+	document.getElementById("buttonUp").disabled = true;
+	document.getElementById("buttonDown").disabled = true;
+	document.getElementById("buttonLeft").disabled = true;
+	document.getElementById("buttonRight").disabled = true;
+	document.getElementById("buttonAttack").disabled = true;
+	document.getElementById("buttonMagic").disabled = true;
+	document.getElementById("buttonDoor").disabled = true;
+	document.getElementById("buttonUse").disabled = true;
+	return;
+};
+
+function activateButtons(){
+	document.getElementById("buttonUp").disabled = false;
+	document.getElementById("buttonDown").disabled = false;
+	document.getElementById("buttonLeft").disabled = false;
+	document.getElementById("buttonRight").disabled = false;
+	document.getElementById("buttonAttack").disabled = false;
+	document.getElementById("buttonMagic").disabled = false;
+	document.getElementById("buttonDoor").disabled = false;
+	document.getElementById("buttonUse").disabled = false;
+	document.getElementById("buttonEndTurn").disabled = false;
+	document.getElementById("buttonMusic").disabled = false;
+	return;
+};
+
+function waitForOkay(){
+	deactivateButtons();
+	document.getElementById("buttonEndTurn").disabled = true;
+	dungeon.masterPause = true;
+	return;
+};
+
+function okay(){
+	
+	if(dungeon.start == true){
+		dungeon.start = false;
+		mapBuilder1();
+		activateButtons();
+		let n = document.getElementById("message");
+		n.textContent = "Welcome!";
+		music();
+		let p2 = document.getElementById("view");
+		p2.src = "backgroundOutside.gif";
+		return;
+	}
+
+	if(dungeon.intro == true){
+		dungeon.intro = false;
+		dungeon.start = true;
+		let o = document.getElementById("message");
+		o.textContent = "Ready?";
+		let p1 = document.getElementById("view");
+		p1.src = "backgroundIntroText2.gif";
+		return;
+	}
+	
+	if(dungeon.viewAltered == true){
+		dungeon.viewAltered = false;
+		let p = document.getElementById("view");
+		p.src = dungeon.view;
+	}
+
+	if(dungeon.checkPoint1 == true){
+		dungeon.checkPoint1 = false;
+		monsterRoutine();
+		return;
+	}
+
+	if(dungeon.monsterActionCounter > 0){
+		
+		dungeon.monsterActionCounter = dungeon.monsterActionCounter + 1;
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 1){
+			goblinRoutine();
+		}else{
+			if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 2){
+				lichRoutine();
+			}else{
+				if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 3){
+					shadowRoutine();
+				}
+			}
+		}
+		return;	
+
+	}else{	
+
+	if (dungeon.masterTurn == true){
+		dungeon.masterPause = false;
+		if (dungeon.monsterOnTurn < dungeon.monsterList.length +1){
+			monsterRoutine();
+
+		}else{
+			dungeon.masterPause = true;
+			dungeon.masterTurn = false;
+			endTurn();
+		}
+		
+	}else{
+		if (dungeon.heroActions > 0 || dungeon.heroMovement > 0){
+			activateButtons();
+			document.getElementById("buttonEndTurn").disabled = false;
+		}
+		let m = document.getElementById("message");
+		m.textContent = "";
+	}
+	}
+};
+
+function endTurn(){
+	let m = document.getElementById("message");	
+	if(dungeon.monsterList.length < 1 || dungeon.monsterOnTurn > dungeon.monsterList.length){
+		activateButtons();	
+		dungeon.heroActions = 1;
+		dungeon.heroMovement = 1;
+		refillMovement();
+		dungeon.monsterOnTurn = 0;
+		m.textContent = "Your turn!";
+		if(dungeon.monsterComingAfterYouCounter > 1 && dungeon.fakeEndTurn == false){
+			dungeon.monsterComingAfterYouCounter = dungeon.monsterComingAfterYouCounter - 1;
+			if(dungeon.monsterComingAfterYouCounter == 1){
+				dungeon.monsterComingAfterYouCounter = 0;
+				pushReserveList();
+				m.textContent = "some goblins were following you...";
+			}
+		}
+		dungeon.fakeEndTurn = false;
+		return;
+	}else{
+		deactivateButtons();
+		dungeon.masterTurn = true;
+		dungeon.masterPause = false;
+		if(dungeon.monsterComingAfterYouCounter > 1){
+			dungeon.monsterComingAfterYouCounter = dungeon.monsterComingAfterYouCounter - 1;
+			if(dungeon.monsterComingAfterYouCounter == 1){
+				dungeon.monsterComingAfterYouCounter = 0;
+				pushReserveList();
+				m.textContent = "some goblins were following you...";
+				dungeon.checkPoint1 = true;
+				dungeon.monsterOnTurn = 1;
+				dungeon.fakeEndTurn = true;
+				waitForOkay();
+				return;
+			}
+		}
+		dungeon.monsterOnTurn = 1;
+		dungeon.fakeEndTurn = true;
+		monsterRoutine();
+		return;
+	}
+	
+};
+
+
+function monsterRoutine(){
+	switch(dungeon.monsterOnTurn) {
+		case 1:
+    			dungeon.monsterActionCounter = 1;
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 1){
+			goblinRoutine();
+		}else{
+			if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 2){
+				lichRoutine();
+			}else{
+				if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 3){
+					shadowRoutine();
+				}
+			}
+		}
+			waitForOkay();
+			break;
+		case 2:
+    			dungeon.monsterActionCounter = 1;
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 1){
+			goblinRoutine();
+		}else{
+			if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 2){
+				lichRoutine();
+			}else{
+				if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 3){
+					shadowRoutine();
+				}
+			}
+		}
+			waitForOkay();
+			break;
+		case 3:
+    			dungeon.monsterActionCounter = 1;
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 1){
+			goblinRoutine();
+		}else{
+			if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 2){
+				lichRoutine();
+			}else{
+				if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 3){
+					shadowRoutine();
+				}
+			}
+		}
+			waitForOkay();
+			break;
+		case 4:
+    			dungeon.monsterActionCounter = 1;
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 1){
+			goblinRoutine();
+		}else{
+			if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 2){
+				lichRoutine();
+			}else{
+				if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 3){
+					shadowRoutine();
+				}
+			}
+		}
+			waitForOkay();
+			break;
+		case 5:
+    			dungeon.monsterActionCounter = 1;
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 1){
+			goblinRoutine();
+		}else{
+			if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 2){
+				lichRoutine();
+			}else{
+				if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 3){
+					shadowRoutine();
+				}
+			}
+		}
+			waitForOkay();
+			break;
+		case 6:
+    			dungeon.monsterActionCounter = 1;
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 1){
+			goblinRoutine();
+		}else{
+			if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 2){
+				lichRoutine();
+			}else{
+				if(dungeon.monsterList[dungeon.monsterOnTurn-1].type == 3){
+					shadowRoutine();
+				}
+			}
+		}
+			waitForOkay();
+			break;
+	}
+	return;
+};
+
+
+function goblinRoutine(){
+	switch(dungeon.monsterActionCounter){
+		case 1:
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].strength == 1){
+			goblinArcherMove();
+			waitForOkay();
+			break;
+		}else{
+			let m1 = document.getElementById("message");
+		
+			let combat = checkCombat();
+			m1.textContent = combat;
+			if (combat == true){
+				m1.textContent = dungeon.monsterList[dungeon.monsterOnTurn -1].name +" is ready to attack!";
+				waitForOkay();
+				break;
+			}else{
+				goblinMove();
+				waitForOkay();
+				break;
+			}
+		}
+		case 2:
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].strength == 1){
+			goblinArcherAttack();
+			waitForOkay();
+			break;
+		}else{
+			let m2 = document.getElementById("message");
+			let combat2 = checkCombat();
+			if (combat2 == true){
+				m2.textContent = dungeon.monsterList[dungeon.monsterOnTurn -1].name +" attacks!";
+				waitForOkay();
+				goblinAttack();
+				waitForOkay();
+				break;
+			}else{
+				m2.textContent = dungeon.monsterList[dungeon.monsterOnTurn -1].name +" does not attack";
+				waitForOkay();
+				break;
+			}
+		}
+		case 3:
+			dungeon.monsterOnTurn = dungeon.monsterOnTurn +1;
+			dungeon.monsterActionCounter = 0;
+			okay();
+			break;
+	}
+	return;
+};
+
+function lichRoutine(){
+	switch(dungeon.monsterActionCounter){
+		case 1:
+				lichMove();
+				waitForOkay();
+				break;
+		case 2:
+				let m2 = document.getElementById("message");
+				m2.textContent = dungeon.monsterList[dungeon.monsterOnTurn -1].name +" attacks!";
+				waitForOkay();
+				lichAttack();
+				waitForOkay();
+				break;
+		case 3:
+			dungeon.monsterOnTurn = dungeon.monsterOnTurn +1;
+			dungeon.monsterActionCounter = 0;
+			okay();
+			break;
+	}
+	return;
+};
+
+
+function shadowRoutine(){
+	switch(dungeon.monsterActionCounter){
+		case 1:
+				shadowMove();
+				waitForOkay();
+				break;
+		case 2:
+				shadowAttack();
+				break;
+		case 3:
+			dungeon.monsterOnTurn = dungeon.monsterOnTurn +1;
+			dungeon.monsterActionCounter = 0;
+			okay();
+			break;
+	}
+	return;
+};
+
+
+
+
+function eliminate(j){
+	dungeon.monsterList[j] = new eraser();
+	newArray = [];
+	if(j > 0){			
+		for(k=0; k<j; k++){
+			newArray[k]= dungeon.monsterList[k];
+		}
+		for(k=j; k<dungeon.monsterList.length-1; k++){
+			newArray[k]= dungeon.monsterList[k+1];
+		}
+	}else{
+		for(k=0; k<dungeon.monsterList.length-1; k++){
+		newArray[k]= dungeon.monsterList[k+1];
+		}
+	}
+	dungeon.monsterList = newArray;
+};
+
+// dummy monster to erase the dead monster from the monster list
+function eraser() {
+	this.type = 0;
+};
+
+
+
+
+
+function calculateDistance(){
+let opponent = dungeon.monsterList[dungeon.monsterOnTurn-1];
+let x = opponent.position % 16;
+	let y = opponent.position / 16;
+	y = Math.round(y);
+
+	let v = hero.positionNumber % 16;
+	let w = hero.positionNumber / 16;
+	w = Math.round(w);
+
+	d1 = x - v;
+	if (d1 < 0){
+		d1 = -1 * d1;
+	}
+	d2 = y - w;
+	if (d2 < 0){
+		d2 = -1 * d2;
+	}
+
+	d = d1 + d2;
+
+return d;
+}
+
+function combatFieldsCreator(){
+	let a = hero.positionNumber+1;
+	let b = hero.positionNumber+16;
+	let c = hero.positionNumber-1;
+	let d = hero.positionNumber-16;
+	let e = hero.positionNumber+17;
+	let f = hero.positionNumber+15;
+	let g = hero.positionNumber-17;
+	let h = hero.positionNumber-15;
+	let newArray = [];
+	if ((a-1) % 16 > 0){
+		newArray.push(helpMap.fields[a]);
+	}
+	if ((b-16) - 113 < 0){
+		newArray.push(helpMap.fields[b]);
+	}
+	if ((c+1) % 16 !== 1){
+		newArray.push(helpMap.fields[c]);
+	}
+	if ((d+16) > 16){
+		newArray.push(helpMap.fields[d]);
+	}
+	if ((e-16) -113 < 0 && (e-1) % 16 > 0){
+		newArray.push(helpMap.fields[e]);
+	}
+	if ((f-16) -113 < 0 && (f+1) % 16 !== 1){
+		newArray.push(helpMap.fields[f]);
+	}
+	if ((g+16) > 16 && (g+1) % 16 !== 1){
+		newArray.push(helpMap.fields[g]);
+	}
+	if ((h+16) > 16 && (h-1) % 16 > 0){
+		newArray.push(helpMap.fields[h]);
+	}
+	return newArray;
+};
+
+
+
+function checkCombat(){
+	let combatFields = combatFieldsCreator();
+	let result = false;
+	
+	for(i=0; i<combatFields.length; i++){
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].position == helpMap.fields.indexOf(combatFields[i])){
+			result = true;
+		}else{
+		}
+	}
+	return result;
+	
+};
+
+
+
+
+//MONSTER OBJECT HOLDING MONSTER STATS
+
+//const Goblin{name; number; type; life; strength; armor; position, weapon}
+
+//const Lich{name; number; type; life; strength; armor; position}
+
+function Goblin(position) {
+	this.type = 1;
+	let goblinCounter = 0;
+	for(i=0; i<dungeon.monsterList.length; i++){
+		if(dungeon.monsterList[i].type == 1){
+			goblinCounter = goblinCounter + 1;
+		}
+	}
+	this.number = goblinCounter + 1;
+	if(goblinCounter == 0){
+		this.name = "Goblin";
+	}else{
+		this.name = "Goblin " + this.number;
+	}
+	this.life = 6;
+	this.strength = 2;
+	this.armor = 2;
+	this.weapon = 3;
+	this.position = position;
+		//in case a random position is wished
+	if(this.position == 999){
+		let obstacle = true;
+		while (obstacle == true){
+			let time = Date.now();
+			let diceNumber = rollDice();
+			let randomSpawnNumber = time * diceNumber % 127;
+			let randomFieldId = helpMap.fields[randomSpawnNumber];
+			let randomField = document.getElementById(randomFieldId);
+			this.position = randomSpawnNumber;
+
+			let x = this.position % 16;
+			let y = this.position / 16;
+			let v = hero.positionNumber % 16;
+			let w = hero.positionNumber / 16;
+			d1 = x - v;
+			if (d1 < 0){
+				d1 = -1 * d1;
+			}
+			d2 = y - w;
+			if (d2 < 0){
+				d2 = -1 * d2;
+			}
+			d = d1 + d2;
+			if(randomField.className == "light" && d > 3){
+			obstacle = false;
+			}
+		}
+	}
+	let newMonsterId = helpMap.fields[this.position];
+	let newMonster = document.getElementById(newMonsterId);
+	newMonster.className = "goblin";
+};
+
+
+
+function goblinMove() {
+	let m4 = document.getElementById("message");
+	let movingGoblin = dungeon.monsterList[dungeon.monsterOnTurn -1];
+	let oldPosition = dungeon.monsterList[dungeon.monsterOnTurn -1].position;
+	let monsterId = helpMap.fields[movingGoblin.position];
+	m4.textContent = movingGoblin.name + " approached!";
+	let oldField = document.getElementById(monsterId);
+	distance1 = calculateDistance();
+	let failureCounter = 1;	
+	if (distance1 < 8){
+		let combatFields = combatFieldsCreator();
+		let obstacle = true;
+		let i = 0;
+		let newField = document.getElementById(monsterId);
+		while(obstacle == true  && failureCounter < 9){
+			newField = document.getElementById(combatFields[i]);
+			if (newField.className == "light"){
+				obstacle = false;
+				oldField.className = "light";
+				newField.className = "goblin";
+				movingGoblin.position = helpMap.fields.indexOf(combatFields[i]);
+				dungeon.monsterList[dungeon.monsterOnTurn -1].position = movingGoblin.position;
+			}else{ 
+				i = i + 1;
+				failureCounter = failureCounter +1;
+			}
+		}
+	}else{
+		let obstacle = true;
+		while (obstacle == true && failureCounter < 128){
+			let time = Date.now();
+			let randomMovementNumber = time * (movingGoblin.position+1) % 127;
+			let randomFieldId = helpMap.fields[randomMovementNumber];
+			let randomField = document.getElementById(randomFieldId);
+			movingGoblin.position = randomMovementNumber;
+			distance2 = calculateDistance();
+			if(randomField.className == "light" && distance2 > 4 && distance2 < 8){
+				obstacle = false;
+				oldField.className = "light";
+				randomField.className = "goblin";
+				dungeon.monsterList[dungeon.monsterOnTurn -1].position = movingGoblin.position;
+			}else{ 
+				failureCounter = failureCounter +1;
+			}
+		}
+	}
+	if(oldPosition == dungeon.monsterList[dungeon.monsterOnTurn -1].position){
+		m4.textContent = movingGoblin.name + " pauses.";
+	}
+}
+
+
+
+function goblinAttack(){
+	let attacker = dungeon.monsterList[dungeon.monsterOnTurn-1];
+	let m = document.getElementById("message");
+	let diceNumber = rollDice();
+	let criticalHit = 0;
+	if(diceNumber == 0){
+		m.textContent = attacker.name + "s attack failed miserably!";
+		dungeon.audioGoblinMisses.play();
+		dungeon.audioGoblinMisses2.play();
+		let p = document.getElementById("view");
+		p.src = "dodged-goblin.gif";
+		dungeon.viewAltered = true;
+	}else{
+		if(diceNumber/2 + attacker.strength - hero.armor > 0 || diceNumber == 9){
+			let diceNumber2 = rollDice();
+			if(diceNumber == 9){
+				criticalHit = 1;
+				diceNumber2 = 9;
+			}
+			let lifeLost = (diceNumber2 + attacker.weapon)/4;
+			if(lifeLost < 1){
+				reduceLife();
+				if(hero.life > 0){
+					m.textContent = attacker.name + " hit you! -1 life";
+					dungeon.audioGoblinHit.play();
+					dungeon.audioGoblinHit2.play();
+					let p2 = document.getElementById("view");
+					p2.src = "attacking-goblin.gif";
+					dungeon.viewAltered = true;
+				}
+			}else{
+				lifeLost = Math.round(lifeLost) + criticalHit;
+				m.textContent = attacker.name + " hit you! -"+ lifeLost + " life";
+				dungeon.audioGoblinHit.play();
+				dungeon.audioGoblinHit2.play();
+				for(i=1; i < lifeLost + 1; i++){
+					reduceLife();
+				}
+				if(hero.life > 0){
+					m.textContent = attacker.name + " hit you! -"+ lifeLost + " life";
+					dungeon.audioGoblinHit.play();
+					dungeon.audioGoblinHit2.play();
+				}
+				if(criticalHit == 1){
+					m.textContent = attacker.name + " landed a critical hit on you! -"+ lifeLost + " life";
+					dungeon.audioGoblinHit.play();
+					dungeon.audioGoblinHit2.play();
+				}
+				let p3 = document.getElementById("view");
+				p3.src = "attacking-goblin.gif";
+				dungeon.viewAltered = true;
+			}
+		}else{
+			m.textContent = attacker.name + " attacked but missed you!";
+			dungeon.audioGoblinMisses.play();
+			dungeon.audioGoblinMisses2.play();
+			let p4 = document.getElementById("view");
+			p.src = "dodged-goblin.gif";
+			dungeon.viewAltered = true;
+		}
+	}
+};
+
+function Lich(position) {
+	this.type = 2;
+	let lichCounter = 0;
+	for(i=0; i<dungeon.monsterList.length; i++){
+		if(dungeon.monsterList[i].type == 2){
+			lichCounter = lichCounter + 1;
+		}
+	}
+	this.number = lichCounter + 1;
+	if(lichCounter == 0){
+		this.name = "Lich";
+	}else{
+		this.name = "Lich " + this.number;
+	}
+	this.life = 11;
+	this.strength = 3;
+	this.armor = 0;
+
+	this.magic1 = 1;
+	this.magic2 = 1;
+
+	this.position = position;
+		//in case a random position is wished
+	if(this.position == 999){
+		let obstacle = true;
+		while (obstacle == true){
+			let time = Date.now();
+			let diceNumber = rollDice();
+			let randomSpawnNumber = time * diceNumber % 127;
+			let randomFieldId = helpMap.fields[randomSpawnNumber];
+			let randomField = document.getElementById(randomFieldId);
+			this.position = randomSpawnNumber;
+
+			let x = this.position % 16;
+			let y = this.position / 16;
+			let v = hero.positionNumber % 16;
+			let w = hero.positionNumber / 16;
+			d1 = x - v;
+			if (d1 < 0){
+				d1 = -1 * d1;
+			}
+			d2 = y - w;
+			if (d2 < 0){
+				d2 = -1 * d2;
+			}
+			d = d1 + d2;
+			if(randomField.className == "light" && d > 3){
+			obstacle = false;
+			}
+		}
+	}
+	let newMonsterId = helpMap.fields[this.position];
+	let newMonster = document.getElementById(newMonsterId);
+	newMonster.className = "lich";
+};
+
+function lichMove() {
+	movingLich = dungeon.monsterList[dungeon.monsterOnTurn-1];
+	let m4 = document.getElementById("message");
+	let monsterId = helpMap.fields[movingLich.position];
+	m4.textContent = movingLich.name + " wanders...";
+	dungeon.audioLichMove.play();
+	let oldField = document.getElementById(monsterId);
+	oldField.className = "light";
+
+	if (movingLich.position -1 == hero.positionNumber){
+		let heroId = helpMap.heroPosition;
+		let shitField = document.getElementById(heroId);
+		hero.life = 1;
+		reduceLife();
+		shitField.className = "lich";
+		let p = document.getElementById("portrait");
+		p.src = "characterPortraitSmallConsumed.gif";
+		m4.textContent = movingLich.name + "s ethereal aura erased you...Game Over!";
+		let p2 = document.getElementById("view");
+		p2.src = "lich-image-bnwDeathMove.gif";
+		dungeon.viewAltered = true;
+		dungeon.audioLichDeathmove.play();
+	}else{
+		movingLich.position = movingLich.position -1;
+		if(movingLich.position == 0){
+			movingLich.position = 127;
+		}else{
+		}
+		monsterId = helpMap.fields[movingLich.position];
+		let newField = document.getElementById(monsterId);
+
+		if(newField.className == "door"){
+			movingLich.position = movingLich.position -1;
+		}
+		if(newField.className == "goblin" || newField.className == "goblinArcher"){
+			for(i = 0; i < dungeon.monsterList.length; i++){
+				if(dungeon.monsterList[i].position == movingLich.position){
+					eliminate(i);
+				for(i=0; i<dungeon.monsterList.length; i++){
+					if(dungeon.monsterList[i].type == 2){
+						dungeon.monsterOnTurn = i + 1;
+					}
+				}
+				m4.textContent = movingLich.name + "s ethereal aura erased the Goblin!";
+				dungeon.audioLichDeathmove.play();
+				}
+			}
+		}
+		newField.className = "lich";
+	}
+};
+
+function lichAttack(){
+	let attacker = dungeon.monsterList[dungeon.monsterOnTurn-1];
+	let m = document.getElementById("message");
+	fever = false;
+	let distanceLich = calculateDistance();
+	if(attacker.position - 1 == hero.positionNumber && attacker.magic1 == 1){
+		fever = true;
+	}
+	if(distanceLich == 1 && attacker.magic1 == 1 && dungeon.monsterList.length > 1){
+		fever = true;
+	}
+	if(fever == true){
+		hero.sick = true;
+		attacker.magic1 = 0;
+		m.textContent = attacker.name + " cast a necromantic fever on you!";
+		let p2 = document.getElementById("view");
+		p2.src = "lich-image-bnwNecromanticFever.gif";
+		dungeon.viewAltered = true;
+		dungeon.audioLichNecromanticFever.play();
+		let p = document.getElementById("portrait");
+		p.src = "characterPortraitSmallSick.gif";
+	}else{
+	let diceNumber = rollDice();
+	if(diceNumber/2 + attacker.strength - hero.armor > 0 && distanceLich < 6){
+		reduceLife();
+		if(hero.life < 1){
+			m.textContent = attacker.name + "s magic bolt killed you, GAME OVER!";
+			let p3 = document.getElementById("view");
+			p3.src = "lich-image-bnwMagicBolt.gif";
+			dungeon.viewAltered = true;
+			dungeon.audioLichMagicBolt.play();
+		}else{
+			m.textContent = attacker.name + " charged a magic bolt on you! -1 life";
+			dungeon.audioLichMagicBolt.play();
+			let p = document.getElementById("view");
+			p.src = "lich-image-bnwMagicBolt.gif";
+			dungeon.viewAltered = true;
+		}
+		if(distanceLich < 3 && hero.life > 1 && hero.sick == false){
+			let heroId = helpMap.heroPosition;
+			let oldField = document.getElementById(heroId);
+			let obstacle = true;
+			let telekinesisNumber = hero.positionNumber;
+			let randomFieldId = heroId;
+			let randomField = document.getElementById(randomFieldId);
+			failureCounter = 1;
+			while (obstacle == true && failureCounter < 128){
+				let diceNumber = rollDice();
+				telekinesisNumber = diceNumber * (hero.positionNumber+1) % 127;
+				randomFieldId = helpMap.fields[telekinesisNumber];
+				randomField = document.getElementById(randomFieldId);
+				let distance1 = telekinesisNumber % 16 - hero.positionNumber % 16;
+				let distance2 = Math.round(telekinesisNumber / 16) - Math.round(hero.positionNumber /16);
+				if(distance1 < 0){
+					distance1 = distance1 * (-1);
+				}
+				if(distance2 < 0){
+					distance2 = distance2 * (-1);
+				}
+				let distance3 = distance1 + distance2;
+				if(randomField.className == "light" && distance3 > 4){
+					obstacle = false;
+				}else{
+					failureCounter = failureCounter +1;
+				}
+			}
+			oldField.className = "light";
+			randomField.className = "hero";
+			if(failureCounter > 127){
+			}else{
+				m.textContent = attacker.name + " used telekinesis on you! -1 life";
+				let p5 = document.getElementById("view");
+				p5.src = "lich-image-bnwTelekinesis.gif";
+				dungeon.viewAltered = true;
+				dungeon.audioLichTelekinesis.play();
+				hero.positionNumber = telekinesisNumber;
+				helpMap.heroPosition = randomFieldId;
+			}			
+		}
+	}else{
+		m.textContent = attacker.name + "s magic attack missed you!";
+		dungeon.audioLichMisses.play();
+		let p4 = document.getElementById("view");
+		p4.src = "lich-image-bnwMagicBoltMisses.gif";
+		dungeon.viewAltered = true;
+	}
+	}
+};
+
+
+
+
+function GoblinArcher(position) {
+	this.type = 1;
+	let goblinCounter = 0;
+	for(i=0; i<dungeon.monsterList.length; i++){
+		if(dungeon.monsterList[i].type == 1){
+			goblinCounter = goblinCounter + 1;
+		}
+	}
+	this.number = goblinCounter + 1;
+	if(goblinCounter == 0){
+		this.name = "Goblin Archer";
+	}else{
+		this.name = "Goblin Archer " + this.number;
+	}
+	this.life = 3;
+	this.strength = 1;
+	this.armor = 2;
+	this.weapon = 1;
+	this.position = position;
+		//in case a random position is wished
+	if(this.position == 999){
+		let obstacle = true;
+		while (obstacle == true){
+			let time = Date.now();
+			let diceNumber = rollDice();
+			let randomSpawnNumber = time * diceNumber % 127;
+			let randomFieldId = helpMap.fields[randomSpawnNumber];
+			let randomField = document.getElementById(randomFieldId);
+			this.position = randomSpawnNumber;
+
+			let x = this.position % 16;
+			let y = this.position / 16;
+			let v = hero.positionNumber % 16;
+			let w = hero.positionNumber / 16;
+			d1 = x - v;
+			if (d1 < 0){
+				d1 = -1 * d1;
+			}
+			d2 = y - w;
+			if (d2 < 0){
+				d2 = -1 * d2;
+			}
+			d = d1 + d2;
+			if(randomField.className == "light" && d > 3){
+			obstacle = false;
+			}
+		}
+	}
+	let newMonsterId = helpMap.fields[this.position];
+	let newMonster = document.getElementById(newMonsterId);
+	newMonster.className = "goblinArcher";
+};
+
+
+
+function goblinArcherMove() {
+	let m4 = document.getElementById("message");	
+	let movingGoblin = dungeon.monsterList[dungeon.monsterOnTurn -1];
+	let monsterId = helpMap.fields[movingGoblin.position];
+	m4.textContent = movingGoblin.name + " gets into position to shoot!";
+	let oldField = document.getElementById(monsterId);
+	distance1 = calculateDistance();
+	if (distance1 > 8 || distance1 < 3){
+
+		let obstacle = true;
+		let failureCounter = 1;
+		while (obstacle == true  && failureCounter < 128){
+			let time = Date.now();
+			let randomMovementNumber = time * (movingGoblin.position+1) % 127;
+			let randomFieldId = helpMap.fields[randomMovementNumber];
+			let randomField = document.getElementById(randomFieldId);
+			movingGoblin.position = randomMovementNumber;
+			distance2 = calculateDistance();
+			if(randomField.className == "light" && distance2 > 4 && distance2 < 8){
+				obstacle = false;
+				oldField.className = "light";
+				randomField.className = "goblinArcher";
+				dungeon.monsterList[dungeon.monsterOnTurn -1].position = movingGoblin.position;
+				
+			}else{ 
+				failureCounter = failureCounter+1;
+			}
+		}
+	}else{
+		m4.textContent = movingGoblin.name + " is aiming at you!";		
+	}
+
+}
+
+
+
+function goblinArcherAttack(){
+	let attacker = dungeon.monsterList[dungeon.monsterOnTurn-1];
+	let m = document.getElementById("message");
+	let diceNumber = rollDice();
+	if(diceNumber == 0){
+		m.textContent = attacker.name + "s attack failed miserably!";
+		dungeon.audioGoblinMisses.play();
+		dungeon.audioGoblinMisses2.play();
+		let p = document.getElementById("view");
+		p.src = "dodged-goblinArcher.gif";
+		dungeon.viewAltered = true;
+	}else{
+
+	let distance3 = calculateDistance();
+	let criticalHit = 0;
+	if(distance3 > 8){
+		m.textContent = attacker.name + "s arrow missed you!";	
+		let p2 = document.getElementById("view");
+		p2.src = "dodged-goblinArcher.gif";
+		dungeon.viewAltered = true;
+		dungeon.audioGoblinMisses.play();
+		dungeon.audioGoblinMisses2.play();
+	}else{	
+		if(diceNumber/2 + attacker.strength - hero.armor > 0 || diceNumber == 9){
+			if(diceNumber == 9){
+				criticalHit = 1;
+			}
+			let lifeLost = 1 + criticalHit;
+			if(lifeLost == 1){
+				reduceLife();
+				if(hero.life > 0){
+					m.textContent = attacker.name + " shot an arrow at you! -1 life";
+					let p4 = document.getElementById("view");
+					p4.src = "attacking-goblinArcher.gif";
+					dungeon.viewAltered = true;		
+					dungeon.audioGoblinHit.play();
+					dungeon.audioGoblinHit2.play();
+				}
+			}else{
+				m.textContent = attacker.name + "s arrow hit you quite bad! -2 life";
+				let p5 = document.getElementById("view");
+				p5.src = "attacking-goblinArcher.gif";
+				dungeon.viewAltered = true;
+				dungeon.audioGoblinHit.play();
+				dungeon.audioGoblinHit2.play();
+				reduceLife();
+				reduceLife();
+				if(hero.life > 0){
+					m.textContent = attacker.name + "s arrow hit you quite bad! -2 life";
+					let p6 = document.getElementById("view");
+					p6.src = "attacking-goblinArcher.gif";
+					dungeon.viewAltered = true;
+					dungeon.audioGoblinHit.play();
+					dungeon.audioGoblinHit2.play();
+				}
+			}
+		}else{
+			m.textContent = attacker.name + "s arrow missed you!";
+			dungeon.audioGoblinMisses.play();
+			dungeon.audioGoblinMisses2.play();
+			let p7 = document.getElementById("view");
+			p7.src = "dodged-goblinArcher.gif";
+			dungeon.viewAltered = true;
+		}
+	}
+	}
+};
+
+
+function Shadow(position) {
+	this.type = 3;
+	
+	this.number = 99;
+	this.name = "Shadow";
+	this.life = 666;
+	this.strength = 666;
+	this.armor = 666;
+	this.weapon = 666;
+	this.position = position;
+	let newMonsterId = helpMap.fields[this.position];
+	let newMonster = document.getElementById(newMonsterId);
+	newMonster.className = "shadow";
+};
+
+function shadowMove() {
+	let m = document.getElementById("message");
+	m.textContent = "...you are surrounded by shadows...";
+		let p1 = document.getElementById("view");
+		p1.src = "movingShadows.gif";
+		dungeon.viewAltered = true;	
+	for(j=0;j<3;j++){
+		let movingShadow = dungeon.monsterList[dungeon.monsterOnTurn -1 + j];
+		let monsterId = helpMap.fields[movingShadow.position];
+		let oldField = document.getElementById(monsterId);
+		let combatFields = combatFieldsCreator();
+		let obstacle = true;
+		let i = 0;
+		let newField = document.getElementById(monsterId);
+		let failureCounter = 1;
+		while(obstacle == true  && failureCounter < 11){
+			newField = document.getElementById(combatFields[i]);
+			if (newField.className == "light" || newField.className == "blind" || newField.className == "darkWall"){
+				obstacle = false;
+				oldField.className = "blind";
+				newField.className = "shadow";
+				movingShadow.position = helpMap.fields.indexOf(combatFields[i]);
+				dungeon.monsterList[dungeon.monsterOnTurn -1].position = movingShadow.position;
+			}else{ 
+				i = i + 1;
+				failureCounter = failureCounter+1;
+			}
+		}
+	}
+}
+
+
+function shadowAttack(){
+		let m = document.getElementById("message");
+		let heroId = helpMap.heroPosition;
+		let shitField = document.getElementById(heroId);
+		hero.life = 1;
+		reduceLife();
+		shitField.className = "blind";
+		let p = document.getElementById("portrait");
+		p.src = "characterPortraitSmallConsumed.gif";
+		m.textContent = "The maw of darkness opens before you...Game Over!";
+		let p2 = document.getElementById("view");
+		p2.src = "attackingShadows.gif";
+		dungeon.viewAltered = true;
+		dungeon.audioLichDeathmove.play();
+};
+
+
+
+//Goblin1 = new CreateGoblin(1);
+//Lich1 = new CreateLich(1);
+
+
+
+//LEVEL 1 FUNCTION CREATES FIRST DUNGEON FOLLOWING AN INTRO SCREEN
+
+
+
+
+
+//RANDOM NUMBERS
+
+const dice = [8, 5, 2, 7, 8, 8, 3, 5, 1, 9, 3, 2, 8, 2, 7, 10, 2, 2, 7, 7, 8, 10, 9, 1, 10, 8, 6, 3, 4, 7, 8, 2, 10, 5, 1, 2, 2, 2, 2, 5, 8, 10, 2, 7, 10, 1, 8, 1, 7, 5, 2, 4, 1, 4, 5, 1, 6, 6, 9, 5, 2, 2, 7, 8, 3, 4, 1, 2, 8, 3, 10, 9, 3, 4, 10, 5, 9, 1, 8, 9, 7, 8, 3, 8, 3, 3, 6, 6, 8, 8, 8, 3, 6, 6, 6, 6, 10, 3, 5, 9, 5, 6, 2, 3, 6, 4, 1, 10, 3, 2, 3, 10, 6, 4, 6, 9, 1, 4, 8, 2, 5, 5, 8, 8, 8, 1, 7, 7, 3, 9, 5, 3, 5, 6, 7, 3, 5, 2, 10, 3, 1, 6, 1, 4, 7, 7, 7, 7, 10, 7, 2, 1, 3, 4, 5, 8, 4, 8, 7, 5, 6, 8, 1, 1, 7, 2, 5, 1, 8, 10, 1, 7, 1, 3, 3, 2, 7, 4, 4, 4, 4, 8, 3, 5, 1, 3, 2, 2, 6, 6, 8, 6, 3, 3, 8, 5, 9, 10, 3, 8, 10, 7, 6, 5, 2, 7, 5, 4, 6, 6, 8, 2, 4, 3, 1, 5, 9, 9, 1, 4, 8, 6, 1, 6, 10, 8, 4, 6, 7, 4, 8, 4, 9, 10, 5, 2, 5, 7, 6, 7, 6, 2, 8, 6, 7, 1, 5, 2, 2, 4, 9, 7, 2, 10, 2, 3, 2, 1, 1, 8, 3, 10, 4, 4, 5, 3, 7, 10, 7, 5, 8, 8, 1, 4, 5, 6, 3, 6, 10, 9, 1, 6, 10, 10, 5, 6, 2, 2, 5, 9, 5, 2, 2, 10, 9, 5, 8, 6, 8, 6, 1, 4, 4, 4, 2, 6, 9, 7, 10, 8, 6, 1, 6, 7, 6, 6, 8, 5, 4, 8, 1, 6, 10, 6, 5, 6, 1, 3, 10, 5, 9, 7, 10, 4, 5, 3, 9, 10, 1, 8, 7, 9, 7, 1, 4, 5, 3, 6, 10, 6, 7, 4, 5, 7, 7, 5, 4, 4, 10, 1, 6, 7, 3, 8, 3, 5, 1, 10, 7, 4, 2, 3, 10, 7, 6, 4, 4, 8, 2, 10, 4, 5, 5, 2, 7, 4, 1, 2, 4, 4, 6, 8, 8, 5, 9, 2, 3, 5, 7, 7, 7, 5, 10, 4, 2, 3, 9, 3, 6, 2, 3, 9, 7, 5, 3, 2, 4, 8, 10, 9, 2, 7, 10, 2, 5, 2, 5, 2, 1, 10, 2, 10, 5, 9, 1, 2, 9, 6, 4, 8, 7, 5, 1, 6, 3, 8, 10, 9, 10, 8, 2, 6, 10, 8, 3, 3, 6, 4, 1, 10, 2, 5, 5, 9, 1, 1, 8, 2, 6, 7, 7, 4, 3, 6, 3, 5, 4, 8, 3, 10, 7, 8, 9, 1, 5, 4, 5, 6, 8, 6, 9, 1, 6, 2, 5, 2, 7, 6, 6, 5, 9, 3, 3, 2, 9, 5, 5, 4, 4, 8, 6, 9, 1, 1, 3, 3, 10, 1, 9, 9, 2, 7, 3, 4, 3, 2, 10, 2, 4, 4, 6, 2, 1, 4, 1, 1, 6, 1, 9, 10, 4, 1, 3, 6, 5, 10, 7, 1, 9, 9, 2, 9, 5, 3, 7, 1, 8, 6, 8, 4, 8, 8, 7, 3, 7, 8, 2, 2, 7, 2, 5, 5, 3, 1, 1, 2, 9, 3, 8, 8, 1, 8, 8, 6, 2, 1, 9, 7, 5, 9, 2, 9, 7, 1, 3, 8, 9, 9, 5, 3, 5, 2, 9, 9, 7, 4, 3, 4, 1, 5, 1, 10, 3, 10, 9, 10, 8, 4, 7, 6, 9, 2, 10, 6, 4, 2, 4, 10, 4, 6, 6, 10, 5, 5, 2, 2, 8, 2, 6, 5, 10, 4, 9, 9, 2, 9, 3, 9, 8, 1, 3, 10, 2, 2, 7, 10, 5, 4, 1, 7, 3, 1, 10, 6, 3, 1, 4, 1, 4, 6, 3, 9, 1, 6, 10, 6, 5, 7, 7, 1, 7, 5, 6, 3, 9, 4, 9, 4, 4, 8, 10, 10, 9, 3, 7, 2, 7, 3, 10, 4, 10, 10, 7, 5, 9, 10, 6, 6, 5, 1, 9, 3, 2, 3, 7, 10, 3, 6, 5, 8, 4, 1, 9, 2, 9, 3, 3, 6, 1, 5, 4, 2, 1, 8, 9, 6, 9, 2, 3, 1, 2, 9, 3, 10, 9, 10, 7, 5, 1, 9, 6, 9, 4, 3, 6, 7, 8, 10, 10, 1, 5, 3, 9, 1, 5, 7, 6, 6, 1, 9, 10, 4, 5, 1, 3, 9, 10, 9, 4, 5, 3, 9, 9, 3, 2, 2, 8, 2, 3, 9, 3, 6, 9, 7, 2, 3, 4, 8, 6, 8, 3, 7, 5, 8, 1, 4, 7, 10, 3, 2, 3, 7, 10, 5, 2, 4, 1, 7, 1, 6, 8, 10, 5, 1, 6, 2, 3, 9, 3, 6, 2, 8, 7, 8, 7, 2, 9, 2, 9, 10, 9, 6, 3, 7, 5, 3, 7, 5, 9, 3, 9, 5, 1, 2, 10, 2, 6, 6, 4, 8, 1, 6, 5, 4, 9, 2, 3, 1, 7, 8, 7, 3, 3, 3, 2, 3, 3, 2, 5, 2, 8, 7, 9, 8, 9, 8, 8, 5, 8, 2, 2, 3, 3, 2, 5, 4, 3, 2, 3, 8, 1, 9, 10, 7, 7, 2, 9, 7, 3, 6, 8, 8, 8, 8, 3, 9, 1, 1, 3, 10, 1, 9, 2, 7, 1, 4, 2, 7, 6, 7, 6, 1, 6, 1, 7, 9, 8, 4, 10, 7, 10, 6, 2, 9, 9, 5, 3, 2, 7, 2, 7, 1, 3, 4, 1, 7, 9, 1, 6, 1, 7, 2, 10, 3, 9, 9, 8, 7, 1, 2, 10, 7, 7, 6, 4, 8, 10, 9, 8, 7, 3, 6, 7, 2, 5, 8, 9, 3, 8, 5, 3, 10, 8, 7, 1, 6, 9, 5, 9, 4];

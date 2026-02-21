@@ -1,0 +1,298 @@
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+/*QUADRANTS*/
+
+.quodrant{
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.qtop,
+.qbottom{
+    width: 100%;
+    height: 50vh;
+}
+
+.quodrant1,
+.quodrant2,
+.quodrant3
+{
+    display: inline;
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.quodrant4{
+    display: inline;
+    float: left;
+    width: 50%;
+    height: 70%;
+}
+.quodrant5{
+    display: inline;
+    float: left;
+    width: 50%;
+    height: 30%;
+}
+
+.quodrant1{
+    top: 0;
+    left: 50vh;
+    background: url("BackgroundClean.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.quodrant2{
+    top: 0;
+    left: 0;
+    background: url("characterBackground.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Lucida Console, Curier New, monospace;
+    font-size: 100%;
+    font-stretch: ultra-expanded;
+    
+}
+
+.quodrant3{
+    top: 50vw;
+    left: 0;
+    background: black;
+}
+
+.quodrant4{ 
+    top: 50vw;
+    left: 50vh;
+    background: url("Background-actions.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.quodrant5{ 
+    top: 50vw;
+    left: 50vh;
+    background: url("Background-messages.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/*Character Field*/
+
+.character{
+	border-spacing: .5em; 
+	border-collapse: collapse;
+	width: 90%;
+	height: 105%;
+	padding-top: 40px;
+	padding-bottom: 40px;	
+}
+
+blockquote{
+	shadow: green;
+	height: 12px;
+}
+
+
+/*ACTION FIELD*/
+
+.buttons{ 
+	border-spacing: .5em; 
+	border-collapse: collapse;
+	width: 80%;
+	height: 50vh;
+}
+
+
+.messages{ 
+	border-spacing: .5em; 
+	border-collapse: collapse;
+	width: 100%;
+	height: auto;
+	text-shadow: 2px 2px #DEB887;
+}
+
+.okay{ 
+	border-spacing: .5em; 
+	border-collapse: collapse;
+	width: 100%;
+	height: auto;
+}
+
+
+/*CHESSBOARD*/
+
+.chess-board{ 
+		border-spacing: .5em; 
+		border-collapse: collapse;
+		width: 97%;
+		height: 50vh;
+		background-image: url(dungeon-floortileBlack.gif), url(dungeon-floortile.gif);
+		background-position: left top, left top;
+		background-repeat: repeat-y, repeat;
+		background-size: 6%, 6%; 
+}
+
+.chess-board th { 
+	padding: .5em;
+}
+
+.chess-board td { 
+	border: 1px solid; width: 6.2%; height: 6.25%; 
+}
+
+.chess-board .light { 
+	background: url("dungeon-floortile.gif");
+	background-size: 100%; 
+}
+
+.chess-board .dark { 
+	background: url("dungeon-floortileDark.gif");
+	background-size: 100%; 
+}
+
+.chess-board .gravel { 
+	background: url("dungeon-floortileGravel.gif");
+	background-size: 100%; 
+}
+
+.chess-board .sack { 
+	background: url("dungeon-floortileSack.gif");
+	background-size: 100%; 
+}
+
+.chess-board .blind { 
+	background: url("dungeon-darkness-floortile.gif");
+	background-size: 100%; 
+}
+
+.chess-board .darkWall { 
+	background: url("dungeon-darkness-floortile.gif");
+	background-size: 100%; 
+}
+
+.chess-board .wall { 
+	background: url("dungeon-walltile.gif");
+	background-size: 100%;
+}
+
+.chess-board .forrest { 
+	background: url("dungeon-forresttile.gif");
+	background-size: 100%;
+}
+
+.chess-board .tunnelhorizontal { 
+	background: url("dungeon-goblintunneltilehorizontal.gif");
+	background-size: 100%;
+}
+
+.chess-board .tunnelvertical{ 
+	background: url("dungeon-goblintunneltilevertical.gif");
+	background-size: 100%;
+}
+
+.chess-board .door { 
+	background: url("dungeon-doortile.gif");
+	background-size: 100%;
+}
+
+.chess-board .hero { 
+	background: url("hero.gif"); 
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+ 
+}
+
+.chess-board .heroDark { 
+	background: url("heroDark.gif"); 
+	background-size: 100%;
+	background-repeat: repeat;
+	background-position: center;
+ 
+}
+
+.chess-board .dead { 
+	background: url("dead.gif"); 
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+ 
+}
+
+.chess-board .goblin { 
+	background: url("goblin.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat; 
+	background-position: center;
+}
+
+.chess-board .goblinArcher { 
+	background: url("goblinArcher.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat; 
+	background-position: center;
+}
+
+.chess-board .goblinDead { 
+	background: url("goblinDead.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat; 
+	background-position: center;
+}
+
+.chess-board .lich { 
+	background: url("lich.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat; 
+	background-position: center;
+}
+
+.chess-board .lichDead { 
+	background: url("lichDead.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat; 
+	background-position: center;
+}
+
+.chess-board .shadow { 
+	background: url("shadow.gif"); 
+	background-size: 100%; 
+	background-repeat: repeat; 
+	background-position: center;
+}
+
+.chess-board .dragon11 { 
+	background: url("dragon11.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat;
+	background-position: bottom; 
+}
+
+.chess-board .dragon12 { 
+	background: url("dragon12.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat;
+	background-position: bottom; 
+}
+
+.chess-board .dragon21 { 
+	background: url("dragon21.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat;
+ 
+}
+
+.chess-board .dragon22 { 
+	background: url("dragon22.gif"); 
+	background-size: 100%; 
+	background-repeat: no-repeat; 
+}

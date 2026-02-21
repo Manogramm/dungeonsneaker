@@ -1,0 +1,171 @@
+
+function door(){
+	let m = document.getElementById("message");
+	if (hero.positionNumber == dungeon.doorPosition && dungeon.heroActions > 0){
+m.textContent = "You entered the next room!";
+switch(dungeon.mapPointer) {
+		case 1:
+mapBuilder1();
+dungeon.MapPointer = 2;
+waitForOkay();
+			break;
+case 2:
+mapBuilder2();
+dungeon.MapPointer = 3;
+waitForOkay();
+			break;
+case 3:
+mapBuilder3();
+dungeon.MapPointer = 4;
+waitForOkay();
+			break;
+case 4:
+mapBuilder4();
+dungeon.MapPointer = 5;
+waitForOkay();
+			break;
+}
+	}else{
+m.textContent = "You cannot open any door right now!";
+	}
+};
+
+
+dungeon.mapPointer = 1;
+dungeon.reserveMonsterList = []
+dungeon.monsterComingAfterYouCounter = 0
+
+dungeon.doorPosition = 110;
+
+dungeon.reserveFieldPosition1 = 0;
+dungeon.reserveFieldPosition2 = 1;
+dungeon.reserveFieldPosition3 = 2;
+dungeon.reserveFieldPosition4 = 3;
+
+
+
+function pushReserveList(){
+for(i=0;i<dungeon.reserveMonsterList.length;i++){
+if(dungeon.reserveMonsterList[i].type == 1{
+dungeon.reserveMonsterList[i].position = dungeon.reserveFieldPosition i???;
+dungeon.monsterList.push(dungeon.reserveMonsterList[i]);
+let monsterId = helpMap.fields[dungeon.reserveMonsterList[i].position];
+let monsterField = document.getElementById(monsterId);
+if(dungeon.reserveMonsterList[i].strength == 1){
+monsterField.className = "goblinArcher";
+}else{
+monsterField.className = "goblin";
+}
+}
+}
+};
+
+
+
+
+function endTurn(){
+	let m = document.getElementById("message");	
+
+if(dungeon.monsterComingAfterYouCounter > 0){
+if(dungeon.monsterComingAfterYouCounter == 1){
+pushReserveList();
+dungeon.monsterComingAfterYouCounter = 0;
+m.textContent = "Some Goblins were following you!";
+}else{
+dungeon.monsterComingAfterYouCounter = dungeon.monsterComingAfterYouCounter -1;
+}
+}
+if(dungeon.monsterList.length < 1 || dungeon.monsterOnTurn > dungeon.monsterList.length){
+		activateButtons();	
+		dungeon.heroActions = 1;
+		dungeon.heroMovement = 1;
+		hero.movement = hero.maximumMovement;
+		refillMovement();
+		dungeon.monsterOnTurn = 0;
+		m.textContent = "Your turn!";
+		return;
+	}else{
+		deactivateButtons();
+		dungeon.masterTurn = true;
+		dungeon.masterPause = false;
+		dungeon.monsterOnTurn = 1;
+		monsterRoutine();
+		return;
+	}
+	
+};
+
+
+
+
+function mapBuilder1{
+if(dungeon.monsterList[0].type == 1 || dungeon.monsterList[0].type == 2 ||dungeon.reserveMonsterList[0].type == 1 ||dungeon.reserveMonsterList[0].type == 2){
+dungeon.monsterComingAfterYouCounter = 3;
+dungeon.reserveMonsterList = dungeon.monsterList.concat(dungeon.reserveMonsterList);
+}
+dungeon.MonsterList = [];
+hero.positionNumber = 2;
+dungeon.reserveFieldPosition1 = 1;
+dungeon.reserveFieldPosition2 = 3;
+dungeon.reserveFieldPosition3 = 4;
+dungeon.reserveFieldPosition4 = 5;
+for(i=0;i<128;i++){
+let currentFieldId = helpMap.fields[i];
+let currentField = document.getElementById(currentFieldId);
+currentField.className = dungeon.map1[i];
+}
+dungeon.doorPosition = 125;
+const goblin2 = new Goblin(999);
+dungeon.monsterList.push(goblin2);
+const lich2 = new Lich(93);
+dungeon.monsterList.push(lich2);
+}
+
+
+
+dungeon.map1 = ["wall","wall","light","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall",
+
+"wall","light","light","light","light","light","light","light","light","light","light","light","light","light","light","wall",
+
+"wall","light","light","light","wall","light","light","light","light","light","light","wall","light","light","light","wall",
+
+"wall","light","light","light","light","light","light","light","light","light","light","light","light","light","light","wall",
+
+"wall","light","light","light","light","light","light","light","light","light","light","light","light","light","light","wall",
+
+"wall","light","light","light","wall","light","light","light","light","light","light","wall","light","light","light","wall",
+
+"wall","light","light","light","light","light","light","light","light","light","light","light","light","light","light","wall",
+
+"wall","wall","light","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","door","wall","wall"]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+You approach to the foul church...during the last decades, moral malpractice and weakness of faith have made this place a fertil ground for demons and fiends of all kinds.
+The mayors daughter, Jutta Kristall, disappeared and was last seen roaming around this entrance, as if sleep walking. Will you be brave enough to find and save her?
+
+(SOME ADVICE: Each turn, you are allowed to move until your movement points are spent, and you can do one other action, but the same applies to any other creature. When there is nothing left to do, press END TURN, and the monsters will proceed with their actions, until it is your turn again.
+Be aware of Goblins, they are very quick and agile...and take extra caution, should you encounter a Lich, as those undead sorcerers are very dangerous.
+May luck and good judgement be with you! And remember, there is not always a simple straight forward way to overcome challenges. Be creative and put your pride aside, it might otherwise seal your fate quicker than you think!)

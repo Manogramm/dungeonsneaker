@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Dungeon Sneaker</title>
+    <link type="text/css" rel="stylesheet" href="main.css" />
+</head>
+<body>
+
+<div class='quodrant'>
+    <div class='qtop'>
+        <div class='quodrant1'><--!img src="view-goblin.gif" width=100% height=100%--></div>
+        <div class='quodrant2'>
+		<table class="character" style="width:100%">
+			<th></th>
+			<td><img id="portrait" src="characterPortraitSmall.gif" style="width: 100px; height: 180px; padding-left: 55px;" >
+			</td>
+			<td style="width:20%">
+		<blockquote style="padding-top: 20px;"><strong>HERO:</strong></blockquote>
+		<blockquote><strong>LIFE:</strong></blockquote>
+		<blockquote><strong>MOVEMENT:</strong></blockquote>
+		<blockquote><strong>STRENGTH:</strong></blockquote>
+		<blockquote><strong>MANA:</strong></blockquote>
+		<blockquote><strong>WEAPON:</strong></blockquote>
+		<blockquote><strong>ARMOR:</strong></blockquote>
+  		<blockquote style="padding-bottom: 20px;"><strong>SPELL:</strong></blockquote>
+			</td>
+			<td style="width:60%">
+		<blockquote style="padding-top: 20px;">Nimrod</blockquote>
+		<blockquote id="life" style="color: DarkRed; 
+				text-shadow:-2px -2px 0px #000,0px -2px 0px #000,2px -2px 0px #000,-2px  0px 0px #000,2px  0px 0px #000,-2px  2px 0px 
+				#000,0px  2px 0px #000,2px  2px 0px #000;">
+				&#9679 &#9679 &#9679 &#9679 &#9679 &#9679 &#9679 &#9679 </blockquote>
+		<blockquote id="movement" style="color: White; 
+				text-shadow:-2px -2px 0px #000,0px -2px 0px #000,2px -2px 0px #000,-2px  0px 0px #000,2px  0px 0px #000,-2px  2px 0px 
+				#000,0px  2px 0px #000,2px  2px 0px #000;">&#9679 &#9679 &#9679 &#9679 &#9679 &#9679  </blockquote>
+		<blockquote style="color: DarkSlateGray; 
+				text-shadow:-2px -2px 0px #000,0px -2px 0px #000,2px -2px 0px #000,-2px  0px 0px #000,2px  0px 0px #000,-2px  2px 0px 
+				#000,0px  2px 0px #000,2px  2px 0px #000;">&#9679 &#9679 &#9679  </blockquote>
+		<blockquote id="mana" style="color: DodgerBlue; 
+				text-shadow:-2px -2px 0px #000,0px -2px 0px #000,2px -2px 0px #000,-2px  0px 0px #000,2px  0px 0px #000,-2px  2px 0px 
+				#000,0px  2px 0px #000,2px  2px 0px #000;">&#9679 &#9679</blockquote>
+		<blockquote>Broad Sword (+4)</blockquote>
+		<blockquote>Chainmail (+2)</blockquote>
+  		<blockquote style="padding-bottom: 20px;">Teleport</blockquote>
+			</td>
+		</table>
+
+	</div>
+    </div>
+    <div class='qbottom'>
+        <div class='quodrant3'>
+	<table class="chess-board">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <td id="a000" class="wall"></td>
+                    <td id="a001" class="wall"></td>
+                    <td id="a002" class="hero"></td>
+                    <td id="a003" class="wall"></td>
+                    <td id="a004" class="wall"></td>
+                    <td id="a005" class="wall"></td>
+                    <td id="a006" class="wall"></td>
+                    <td id="a007" class="wall"></td>
+                    <td id="a008" class="wall"></td>
+                    <td id="a009" class="wall"></td>
+                    <td id="a010" class="wall"></td>
+                    <td id="a011" class="wall"></td>
+                    <td id="a012" class="wall"></td>
+                    <td id="a013" class="wall"></td>
+                    <td id="a014" class="wall"></td>
+                    <td id="a015" class="wall"></td>
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <td id="a016" class="wall"></td>
+                    <td id="a017" class="wall"></td>
+                    <td id="a018" class="door"></td>
+                    <td id="a019" class="wall"></td>
+                    <td id="a020" class="light"></td>
+                    <td id="a021" class="light"></td>
+                    <td id="a022" class="light"></td>
+                    <td id="a023" class="tunnelhorizontal"></td>
+                    <td id="a024" class="light"></td>
+                    <td id="a025" class="light"></td>
+                    <td id="a026" class="light"></td>
+                    <td id="a027" class="light"></td>
+                    <td id="a028" class="light"></td>
+                    <td id="a029" class="light"></td>
+                    <td id="a030" class="light"></td>
+                    <td id="a031" class="wall"></td>
+
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <td id="a032" class="wall"></td>
+                    <td id="a033" class="light"></td>
+                    <td id="a034" class="light"></td>
+                    <td id="a035" class="light"></td>
+                    <td id="a036" class="light"></td>
+                    <td id="a037" class="light"></td>
+                    <td id="a038" class="light"></td>
+                    <td id="a039" class="wall"></td>
+                    <td id="a040" class="light"></td>
+                    <td id="a041" class="light"></td>
+                    <td id="a042" class="light"></td>
+                    <td id="a043" class="light"></td>
+                    <td id="a044" class="light"></td>
+                    <td id="a045" class="light"></td>
+                    <td id="a046" class="light"></td>
+                    <td id="a047" class="wall"></td>
+
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <td id="a048" class="wall"></td>
+                    <td id="a049" class="light"></td>
+                    <td id="a050" class="light"></td>
+                    <td id="a051" class="light"></td>
+                    <td id="a052" class="light"></td>
+                    <td id="a053" class="light"></td>
+                    <td id="a054" class="light"></td>
+                    <td id="a055" class="wall"></td>
+                    <td id="a056" class="light"></td>
+                    <td id="a057" class="light"></td>
+                    <td id="a058" class="light"></td>
+                    <td id="a059" class="light"></td>
+                    <td id="a060" class="light"></td>
+                    <td id="a061" class="light"></td>
+                    <td id="a062" class="light"></td>
+                    <td id="a063" class="wall"></td>
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <td id="a064" class="wall"></td>
+                    <td id="a065" class="light"></td>
+                    <td id="a066" class="light"></td>
+                    <td id="a067" class="wall"></td>
+                    <td id="a068" class="wall"></td>
+                    <td id="a069" class="wall"></td>
+                    <td id="a070" class="wall"></td>
+                    <td id="a071" class="wall"></td>
+                    <td id="a072" class="light"></td>
+                    <td id="a073" class="light"></td>
+                    <td id="a074" class="light"></td>
+                    <td id="a075" class="light"></td>
+                    <td id="a076" class="light"></td>
+                    <td id="a077" class="light"></td>
+                    <td id="a078" class="light"></td>
+                    <td id="a079" class="wall"></td>
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <td id="a080" class="wall"></td>
+                    <td id="a081" class="light"></td>
+                    <td id="a082" class="light"></td>
+                    <td id="a083" class="light"></td>
+                    <td id="a084" class="light"></td>
+                    <td id="a085" class="light"></td>
+                    <td id="a086" class="light"></td>
+                    <td id="a087" class="light"></td>
+                    <td id="a088" class="light"></td>
+                    <td id="a089" class="light"></td>
+                    <td id="a090" class="light"></td>
+                    <td id="a091" class="light"></td>
+                    <td id="a092" class="light"></td>
+                    <td id="a093" class="light"></td>
+                    <td id="a094" class="light"></td>
+                    <td id="a095" class="wall"></td>
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <td id="a096" class="wall"></td>
+                    <td id="a097" class="light"></td>
+                    <td id="a098" class="light"></td>
+                    <td id="a099" class="light"></td>
+                    <td id="a100" class="light"></td>
+                    <td id="a101" class="light"></td>
+                    <td id="a102" class="light"></td>
+                    <td id="a103" class="wall"></td>
+                    <td id="a104" class="light"></td>
+                    <td id="a105" class="light"></td>
+                    <td id="a106" class="light"></td>
+                    <td id="a107" class="light"></td>
+                    <td id="a108" class="light"></td>
+                    <td id="a109" class="light"></td>
+                    <td id="a110" class="light"></td>
+                    <td id="a111" class="wall"></td>
+
+                </tr>
+                <tr>
+                    <th></th>
+                    <td id="a112" class="wall"></td>
+                    <td id="a113" class="wall"></td>
+                    <td id="a114" class="wall"></td>
+                    <td id="a115" class="wall"></td>
+                    <td id="a116" class="wall"></td>
+                    <td id="a117" class="wall"></td>
+                    <td id="a118" class="wall"></td>
+                    <td id="a119" class="wall"></td>
+                    <td id="a120" class="wall"></td>
+                    <td id="a121" class="wall"></td>
+                    <td id="a122" class="wall"></td>
+                    <td id="a123" class="wall"></td>
+                    <td id="a124" class="wall"></td>
+                    <td id="a125" class="wall"></td>
+                    <td id="a126" class="door"></td>
+                    <td id="a127" class="wall"></td>
+                </tr>
+            </tbody>
+        </table>
+	</div>
+        <div class='quodrant4'>
+		<div class="buttons">
+			<button type="button" enabled id="buttonUp" onclick="moveUp()" style="position: absolute; top: 57.5%; left: 58%; width: 60px; height: 40px; background-color: #DEB887;">UP</button>
+
+			<button type="button" enabled id="buttonLeft" onclick="moveLeft()" style="position: absolute; top: 64.5%; left: 55%; width: 60px; height: 40px; background-color: #DEB887;">LEFT</button>
+
+			<button type="button" enabled id="buttonRight" onclick="moveRight()" style="position: absolute; top: 64.5%; left: 61%; width: 60px; height: 40px; background-color: #DEB887;">RIGHT</button>
+
+			<button type="button" enabled id="buttonDown" onclick="moveDown()" style="position: absolute; top: 71.5%; left: 58%; width: 60px; height: 40px; background-color: #DEB887;">DOWN</button>
+
+			<button type="button" enabled id="buttonAttack" onClick="attack()" style="position: absolute; top: 60.5%; left: 70%; width: 62px; height: 40px; background-color: #DEB887;">ATTACK</button>
+			<button type="button" enabled id="buttonMagic" onClick="magic()" style="position: absolute; top: 68.5%; left: 70%; width: 62px; height: 40px; background-color: #DEB887;">MAGIC</button>
+
+			<button type="button" enabled id="buttonDoor" onclick="door()" style="position: absolute; top: 60.5%; left: 76%; width: 62px; height: 40px; background-color: #DEB887;">DOOR</button>
+			<button type="button" enabled id="buttonUse" onclick="test()" style="position: absolute; top: 68.5%; left: 76%; width: 62px; height: 40px; background-color: #DEB887;">USE</button>
+
+			<button type="button" enabled id="buttonEndTurn" onclick="endTurn()" style="position: absolute; top: 64.5%; left: 88%; width: 70px; height: 50px; background-color: #DEB887;">END TURN</button>
+		</div>
+	</div>
+	<div class='quodrant5'>
+		<div class="messages">
+			<p  id="message" style="font-family: Lucida Console, Curier New, monospace; font-size: 100%; font-weight: bold; position: absolute; top: 88.5%; left: 54%; width: 400px; height: 45px;">Welcome!</p>
+		</div>
+		<div class="OK">
+			<button type="button" enabled id="ok" onclick="okay()" style="position: absolute; top: 88.5%; left: 88%; width: 70px; height: 50px; background-color: #DEB887;">OK</button>
+		</div>
+	</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

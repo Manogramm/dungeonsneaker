@@ -1,0 +1,637 @@
+[12:44, 10/1/2025] Alexander Mano Gramm: holy bolt
+zweite Karte Wasserbrücke
+save button
+piglady
+[13:08, 10/1/2025] Alexander Mano Gramm: Bildfunktionen:
+
+checkView()
+prüft nach Bewegung (Hero oder Monster) ob umliegende Felder in Frage kommen->Bildwechsel
+
+aktive Monsterbilder über dungeon.image Zähler definiert
+
+Angriffsbild bei Angriffsfunktionen geschaltet
+
+dungeon.attackOn true or false falls Attackenbild aktive
+
+bei Ok Funktion falls dungeon.attackOn true, set false und frage dungeon.image Zähler ab um auf voriges idle Monsterbild zurückzukehren
+[13:08, 10/1/2025] Alexander Mano Gramm: Hero attackenfunktion auf zwei Monster anpassen!
+[13:40, 10/1/2025] Alexander Mano Gramm: checkView()
+prüft erst alle felder auf goblinbild
+danach falls kein goblin
+alle felder auf lich prüfen
+[13:45, 10/1/2025] Alexander Mano Gramm: hero attacke
+geht immer erst auf Goblin! erst auf lich falls kein Goblin da
+
+hero attacke geht combat felder durch und prüft jeweils ob in monster list ein goblin dort ist,
+falls ja, suche beenden und gefundenes monster = victim
+usw
+[13:45, 10/1/2025] Alexander Mano Gramm: falls kein goblin suche wiederholen für lich
+[13:56, 10/1/2025] Alexander Mano Gramm: falls monster getötet, Bild eliminiern
+dann checkView()
+[14:00, 10/1/2025] Alexander Mano Gramm: falls monster getötet, Bild eliminiern, dungeon.image counter auf 0 setzen,
+dann checkView()
+wodurch dungeon.attackOn auf false gesetzt wird und bei Ok dann dungeon.image counter abgefragt wird (der mitlerweile 0 ist)
+
+sodass alles passt
+[14:01, 10/1/2025] Alexander Mano Gramm: ...oder eine andere Zahl als 0 falls noch ein weiteres Monster gefunden wird
+[15:24, 10/1/2025] Alexander Mano Gramm: You enter the foul church...moral malpractice and weakness of faith have made this place a fertil ground for demons and fiends of all kinds during the last decades...the mayors daughter disappeared and was last seen roaming around this entrance as if sleep walking, will you be brave enough to find and save her?
+
+Bilder!
+
+sound effects!
+
+
+
+[13:53, 10/5/2025] Alexander Mano Gramm: dungeon.reserveMonsterList = [];
+[13:58, 10/5/2025] Alexander Mano Gramm: function mapBuilderX{
+dungeon.reserveMonsterList = dungeon.reserveMonsterList.concat(dungeon.monsterList);
+dungeon.MonsterList = [];
+hero.positionNumber = y;
+mapX = [.........];
+for(i=0;i<128;i++){...= mapX[i];
+//exchange Map fields one by one with mapX
+}
+dungeon.doorPosition = xxx;
+const goblinX = new Goblin(999);
+dungeon.monsterList.push(goblin1);
+const lichX = new Lich(93);
+dungeon.monsterList.push(lich1);
+}
+[13:59, 10/5/2025] Alexander Mano Gramm: dungeon.monsterComingAfterYouCounter = 0;
+[14:06, 10/5/2025] Alexander Mano Gramm: dungeon.reserveFieldPosition1 = 0;
+dungeon.reserveFieldPosition2 = 1;
+[14:32, 10/5/2025] Alexander Mano Gramm: 
+[10:22, 10/6/2025] Alexander Mano Gramm: function endTurn(){
+	let m = document.getElementById("message");	
+
+if(dungeon.monsterComingAfterYouCounter >= 0){
+if(dungeon.monsterComingAfterYouCounter < 2){
+pushReserveList();
+dungeon.monsterComingAfterYouCounter = -99;
+m.textContent = "Some Goblins were following you!";
+}else{
+dungeon.monsterComingAfterYouCounter = dungeon.monsterComingAfterYouCounter -1;
+}
+}
+if(dungeon.monsterList.length < 1 || dungeon.monsterOnTurn > dungeon.monsterList.length){
+		activateButtons();	
+		dungeon.heroActions = 1;
+		dungeon.heroMovement = 1;
+		hero.movement = hero.maximumMovement;
+		refillMovement();
+		dungeon.monsterOnTurn = 0;
+		m.textContent = "Your turn!";
+		return;
+	}else{
+		deactivateButtons();
+		dungeon.masterTurn = true;
+		dungeon.masterPause = false;
+		dungeon.monsterOnTurn = 1;
+		monsterRoutine();
+		return;
+	}
+	
+};
+[10:22, 10/6/2025] Alexander Mano Gramm: function endTurn(){
+	let m = document.getElementById("message");	
+
+if(dungeon.monsterComingAfterYouCounter > 0){
+if(dungeon.monsterComingAfterYouCounter == 1){
+pushReserveList();
+dungeon.monsterComingAfterYouCounter = 0;
+m.textContent = "Some Goblins were following you!";
+}else{
+dungeon.monsterComingAfterYouCounter = dungeon.monsterComingAfterYouCounter -1;
+}
+}
+if(dungeon.monsterList.length < 1 || dungeon.monsterOnTurn > dungeon.monsterList.length){
+		activateButtons();	
+		dungeon.heroActions = 1;
+		dungeon.heroMovement = 1;
+		hero.movement = hero.maximumMovement;
+		refillMovement();
+		dungeon.monsterOnTurn = 0;
+		m.textContent = "Your turn!";
+		return;
+	}else{
+		deactivateButtons();
+		dungeon.masterTurn = true;
+		dungeon.masterPause = false;
+		dungeon.monsterOnTurn = 1;
+		monsterRoutine();
+		return;
+	}
+	
+};
+[10:31, 10/6/2025] Alexander Mano Gramm: function mapBuilderX{
+if(dungeon.monsterList[0].type == 1 || dungeon.monsterList[0].type == 2 ||dungeon.reserveMonsterList[0].type == 1 ||dungeon.reserveMonsterList[0].type == 2){
+dungeon.monsterComingAfterYouCounter = 3;
+dungeon.reserveMonsterList = dungeon.monsterList.concat(dungeon.reserveMonsterList);
+}
+dungeon.MonsterList = [];
+hero.positionNumber = y;
+dungeon.reserveFieldPosition1 = z1;
+dungeon.reserveFieldPosition1 = z2;
+mapX = [.........];
+for(i=0;i<128;i++){
+let currentFieldId = helpMap.fields[i];
+let currentField = document.getElementById(currentFieldId);
+currentField.className = mapX[i];
+//exchange Map fields one by one with mapX
+}
+dungeon.doorPosition = xxx;
+const goblinX = new Goblin(999);
+dungeon.monsterList.push(goblin1);
+const lichX = new Lich(93);
+dungeon.monsterList.push(lich1);
+}
+[10:34, 10/6/2025] Alexander Mano Gramm: function mapBuilder1{
+if(dungeon.monsterList[0].type == 1 || dungeon.monsterList[0].type == 2 ||dungeon.reserveMonsterList[0].type == 1 ||dungeon.reserveMonsterList[0].type == 2){
+dungeon.monsterComingAfterYouCounter = 3;
+dungeon.reserveMonsterList = dungeon.monsterList.concat(dungeon.reserveMonsterList);
+}
+dungeon.MonsterList = [];
+hero.positionNumber = 2;
+dungeon.reserveFieldPosition1 = z1;
+dungeon.reserveFieldPosition1 = z2;
+for(i=0;i<128;i++){
+let currentFieldId = helpMap.fields[i];
+let currentField = document.getElementById(currentFieldId);
+currentField.className = dungeon.map1[i];
+}
+dungeon.doorPosition = 125;
+const goblin2 = new Goblin(999);
+dungeon.monsterList.push(goblin2);
+const lich2 = new Lich(93);
+dungeon.monsterList.push(lich2);
+}
+
+[14:08, 10/6/2025] Alexander Mano Gramm: dungeon.map1 = ["wall","wall","light","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall","wall",
+"wall","light","light","light","light","light","light","light","light","light","light","light","light","light","light","wall",
+"wall","light","light","light","wall","light","light","light","light","light","light","wall","light","light","light","wall",
+"wall","light","light","light","light","light","light","light","light","light","light","light","light","light","light","wall",
+"wall","light","light","light","light","light","light","light","light","light","light","light","light","light","light","wall",
+"wall","light","light","light","wall","light","light","light","light","light","light","wall","light","light","light","wall",
+"wall",…
+[14:00, 10/8/2025] Alexander Mano Gramm: dungeon sneaker Extratracks
+
+diablo
+eros ramazotti
+nickelback
+[18:34, 10/8/2025] Alexander Mano Gramm: last room only with eros playing due to "right mood"!
+[19:45, 10/8/2025] Alexander Mano Gramm: chest with life 
+and a table to "use" for changing character icon with shielding and defense +4 or so
+[19:52, 10/8/2025] Alexander Mano Gramm: icon veränern
+
+bei okay wieder zurücksetzen mittels:
+
+dungeon.monsterIconChanged = true;
+dungeon.oldMonsterIconImage = "goblinArcher";
+dungeon.oldMonsterIconPosition = 67;
+
+dann getElementById etc...
+[19:53, 10/8/2025] Alexander Mano Gramm: gleichermaßen:
+
+hero.iconAttack = true;
+
+oder 
+
+hero.iconDamaged = true;
+
+character Portrait gleichermaßen ändern
+[23:58, 10/8/2025] Alexander Mano Gramm: extrazauber Iron Skin
+zu sehen im Characterportrait und Armor
+bei abfrage des würfelergebnisses von monstern wird würfel auf 0 gesetzt (nicht bei Lich)
+und gegen Goblins rennen ohne Schaden
+
+bei Abfrage von Okay bevor "Your Turn!" wird alles zurückgesetzt
+
+kostet 3 Mana
+[23:59, 10/8/2025] Alexander Mano Gramm: Tische und Truhen implementieren
+
+ueber "use" nutzbar
+
+lediglich bewegungsfunktionen updaten (weitere block Felder)
+[00:00, 10/9/2025] Alexander Mano Gramm: Eingang zu letztem Raum hinter Mauer Berg artig aussehende Felder hinzetzen
+
+im
+letzten Raum wall Felder in CSS zu wasser umdesigned
+[01:09, 10/9/2025] Alexander Mano Gramm: "use" funktion fragt bei Truhen oder Tischen etc. ab, ob 
+1. korrekte Karte
+2. ⁠dort korrekte Hero Position
+dann per if(...&&...) Aktion!
+[09:13, 10/9/2025] Alexander Mano Gramm: 2015742541
+Conrad
+[09:29, 10/9/2025] Alexander Mano Gramm: vor "Your Turn" wird immer abgefragt,
+iron skin true?
+table used as shield true?
+entsprechend  zurücksetzen
+[15:09, 10/10/2025] Alexander Mano Gramm: Truhen mit Fallen!
+[15:23, 10/10/2025] Alexander Mano Gramm: 
+[21:12, 10/10/2025] Alexander Mano Gramm: 1. Level durchbasteln+Tür switches
+2. ⁠images
+3. icons
+4. ⁠sounds
+5. ⁠treasure chests and tables
+[22:16, 10/10/2025] Alexander Mano Gramm: function magic(){
+//Iron Skin
+	let m = document.getElementById("message");
+	if (dungeon.heroActions > 0 && hero.mana > 2){
+
+hero.ironSkin = true;
+
+
+				let p = document.getElementById("portrait");
+		p.src = "characterPortraitSmallIronSkin.gif";
+m.textContent = "Your skin gets magically sealed with liquid iron! -3 mana";
+
+			reduceMana(3);
+			dungeon.heroActions = dungeon.heroActions -1;
+			if (dungeon.heroActions < 1 && dungeon.heroMovement <1){
+				deactivateButtons();
+			}
+		}
+	}else{
+		m.textContent = "You cannot do magic right now!";
+	}
+};
+[22:07, 10/11/2025] Alexander Mano Gramm: new room:
+dark room
+kleine augen neuer monsterklasse "shadow" im schwarzen engen korridor
+one hit direct kill
+
+falls im raum vorher die waffe "torch +1" von der wand genommen wurde, ist der raum hell und die shadows idle (nur falls man daneben stehen bleibt direct kill),
+timer für torch läuft ab (oder attack) -> wieder broad sword
+falls noch im raum -> alles wird dunkel..."run!"
+
+realisierbar mithilfe von zwei Räumen und if condition beim Tür öffnen
+[10:02, 10/12/2025] Alexander Mano Gramm: function use(){
+if(dungeonMapPointer == x && hero.positionNumber == y){
+hero.torchCounter = 4;
+hero.weapon = 1;
+weapon text = torch, +1;
+
+attack()
+if hero torch counter > 0{
+hero torch counter = 0
+
+
+
+
+[18:17, 10/12/2025] Alexander Mano Gramm: neuer raum zum "aufräumen" der reserve monster list:
+
+zweigeteilt, in der Mitte große Brücke über Schlucht,
+use function versperrt Zugang (z.b. Brücke zerstört) UND betätigt nach Belieben Standarmbrust für Fernkampf (ein schuss, ein kill)
+im selben Raum sind die Fackeln 
+
+falls Brücke zerstört und Raum verlassen mit noch voller ReserveMonsterList -> diese Löschen
+[18:18, 10/12/2025] Alexander Mano Gramm: aber Sprengung der Brücke nimmt 1Life
+
+im Raum sind sonst auch Schwarzpulverkisten
+bei use -> -1 Life
+[18:18, 10/12/2025] Alexander Mano Gramm: zum Lernen der Usefulness
+[20:27, 10/12/2025] Alexander Mano Gramm: Räume
+
+[14:20, 10/21/2025] Alexander Mano Gramm: Räume
+
+1. Entry
+2. Crossbow Goblin
+3. Truhen und Fallen
+4. ⁠2 Goblins
+5. ⁠Brücke
+6. ⁠Goblin und Lich (incl. Fackeln)
+7. ⁠Schatten
+8. mini brücke entlang wand vor schlucht, Tueren direkt neneneinander
+9. ⁠Schlangenweg und Grottenentry
+10. ⁠Ladys room
+[14:33, 10/21/2025] Alexander Mano Gramm: enger schattenraum hat geschlossene große hohlRäume, gefährlich bei teleport
+[09:20, 10/15/2025] Alexander Mano Gramm: lloyd christmas mary samsonite
+[16:41, 10/18/2025] Alexander Mano Gramm: Your necromantic endeavours bear fruits. The serpents eye is with you now...
+
+lich summon the dead attack?
+
+enger schattenraum hat geschlossene große hohlRäume, gefährlich bei teleport
+
+dungeon.extraDoorPosition = x;
+
+function door(){
+if(hero.positionNumber == dungeon.doorPosition || hero.positionNumber == dungeon.extraDoorPosition){
+...
+case 4:
+if(hero.positionNumber == dungeon.ExtraDoorPosition){
+mapBuilderExtra1();
+break;
+}else{
+...
+}
+
+function mapBuilder2(){
+...
+if(hero.positionNumber == dungeon.ExtraDoorPosition){
+hero.positionNumber = x;
+}else{
+hero.positionNumber = y;
+}
+
+
+
+
+function sleep(){
+	let m = document.getElementById("message");
+
+	if (dungeon.monsterList.length == 0){	
+		m.textContent = "You cannot cast this spell right now!";
+		return;
+	}
+
+	if (dungeon.heroActions > 0){
+		let victim = dungeon.monsterList[0];
+		let monsterFound = false;
+		let combatFields = combatFieldsCreator();
+		for(j=0; j<dungeon.monsterList.length; j++){
+			for(i=0; i<combatFields.length; i++){
+				if(dungeon.monsterList[j].type == 1 && helpMap.fields.indexOf(combatFields[i]) == dungeon.monsterList[j].position){
+				victim = dungeon.monsterList[j];
+				monsterFound = true;
+				}
+			}
+		}
+		if(monsterFound == true){
+			let m = document.getElementById("message");
+			let diceNumber = rollDice();
+			if(diceNumber == 0){
+				m.textContent = "Your spell failed!";
+			}else{
+						
+				
+					
+						victim.sleep = 3;
+						m.textContent = "You put " + victim.name +  " into a deep slumber!";
+					}
+						
+						
+					
+						
+							
+					}
+				}
+			} 
+			dungeon.heroActions = dungeon.heroActions -1;
+			if (dungeon.heroActions < 1 && dungeon.heroMovement <1){
+				deactivateButtons();
+			}
+		} else {
+		m.textContent = "You cannot cast this spell right now!";
+		}			
+	} else {
+		m.textContent = "You cannot cast this spell right now!";
+	}
+};
+
+
+
+
+
+
+function goblinRoutine(){
+	if(dungeon.monsterList[dungeon.monsterOnTurn-1].sleep > 0){
+dungeon.monsterActionCounter = 4;
+}
+switch(dungeon.monsterActionCounter){
+		case 1:
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].strength == 1){
+			goblinArcherMove();
+			waitForOkay();
+			break;
+		}else{
+			let m1 = document.getElementById("message");
+		
+			let combat = checkCombat();
+			m1.textContent = combat;
+			if (combat == true){
+				m1.textContent = dungeon.monsterList[dungeon.monsterOnTurn -1].name +" is ready to attack!";
+				waitForOkay();
+				break;
+			}else{
+				goblinMove();
+				waitForOkay();
+				break;
+			}
+		}
+		case 2:
+		if(dungeon.monsterList[dungeon.monsterOnTurn-1].strength == 1){
+			goblinArcherAttack();
+			waitForOkay();
+			break;
+		}else{
+			let m2 = document.getElementById("message");
+			let combat2 = checkCombat();
+			if (combat2 == true){
+				m2.textContent = dungeon.monsterList[dungeon.monsterOnTurn -1].name +" attacks!";
+				waitForOkay();
+				goblinAttack();
+				waitForOkay();
+				break;
+			}else{
+				m2.textContent = dungeon.monsterList[dungeon.monsterOnTurn -1].name +" does not attack";
+				waitForOkay();
+				break;
+			}
+		}
+		case 3:
+			dungeon.monsterOnTurn = dungeon.monsterOnTurn +1;
+			dungeon.monsterActionCounter = 0;
+			okay();
+			break;
+
+
+	case 4:
+			let m3 = document.getElementById("message");
+m3.textContent = dungeon.monsterList[dungeon.monsterOnTurn -1].name +" is alseep...";
+dungeon.monsterList[dungeon.monsterOnTurn-1].sleep = dungeon.monsterList[dungeon.monsterOnTurn-1].sleep - 1;
+dungeon.monsterOnTurn = dungeon.monsterOnTurn +1;
+			dungeon.monsterActionCounter = 0;
+			okay();
+			break;
+}
+	return;
+};
+
+
+
+
+[23:38, 10/28/2025] Alexander Mano Gramm: function attack(){
+	let m = document.getElementById("message");
+
+	if (dungeon.monsterList.length == 0){	
+		m.textContent = "You cannot attack right now!";
+		return;
+	}
+
+	if (dungeon.heroActions > 0){
+		let victim = dungeon.monsterList[0];
+		let monsterFound = false;
+		let combatFields = combatFieldsCreator();
+		for(j=0; j<dungeon.monsterList.length; j++){
+			for(i=0; i<combatFields.length; i++){
+				if(dungeon.monsterList[j].type == 1 && helpMap.fields.indexOf(combatFields[i]) == dungeon.monsterList[j].position){
+				victim = dungeon.monsterList[j];
+				monsterFound = true;
+				}
+			}
+		}
+		if(monsterFound == false){
+			for(j=0; j<dungeon.monsterList.length; j++){
+				for(i=0; i<combatFields.length; i++){
+					if(dungeon.monsterList[j].type == 2 && helpMap.fields.indexOf(combatFields[i]) == dungeon.monsterList[j].position){
+					victim = dungeon.monsterList[j];
+					monsterFound = true;
+					}
+				}
+			}
+		}
+		if(monsterFound == true){
+			let m = document.getElementById("message");
+			let diceNumber = rollDice();
+			let criticalHit = 0;
+			if(diceNumber == 0){
+				m.textContent = "Your attack failed miserably!";
+			}else{
+				if(diceNumber/2 + hero.strength - victim.armor > 0 || diceNumber == 9){
+					let diceNumber2 = rollDice();
+					if(diceNumber == 9){
+						criticalHit = 1;
+						diceNumber2 = 9;
+					}
+					let lifeLost = (diceNumber2 + hero.weapon)/4;
+					if(lifeLost < 1){
+						victim.life = victim.life - 1;
+						m.textContent = "You hit " + victim.name +  " and took 1 lifepoint";
+					}else{
+						lifeLost = Math.round(lifeLost) + criticalHit;
+						victim.life = victim.life - lifeLost;
+						m.textContent = "You hit " + victim.name +  " and took " + lifeLost + " life";
+						
+if(victim.sleep > 0){
+victim.sleep = 0;
+"You hit " + victim.name +  " and took " + lifeLost + " life! " + victim.name+ " woke up!";
+}
+if(criticalHit == 1){
+							m.textContent = "You landed a critical hit on " + victim.name +  " and took " + lifeLost + " life";
+						
+if(victim.sleep > 0){
+victim.sleep = 0;
+"You landed a critical hit on " + victim.name +  " and took " + lifeLost + " life! " + victim.name+ " woke up!";
+}
+					}
+				}else{
+					m.textContent = "Your attack missed!";
+				}
+			}
+			if(victim.life < 1){
+				m.textContent = "You killed " + victim.name;
+				let monsterId = helpMap.fields[victim.position];
+				let emptyEnemyField = document.getElementById(monsterId);
+				emptyEnemyField.className = "light";
+				eliminate(0);
+			}
+			dungeon.heroActions = dungeon.heroActions -1;
+			if (dungeon.heroActions < 1 && dungeon.heroMovement <1){
+				deactivateButtons();
+			}
+		} else {
+		m.textContent = "You cannot attack right now!";
+		}			
+	} else {
+		m.textContent = "You cannot attack right now!";
+	}
+};
+[23:38, 10/28/2025] Alexander Mano Gramm: hero.spell = 1, 2 oder 3
+
+
+
+
+function magic(){
+switch(hero.spell){
+case 1:
+teleport();
+break;
+
+case 2:
+sleep();
+break;
+
+case 3:
+ironSkin();
+break;
+}
+return;
+}
+
+
+
+
+
+
+function sleep(){
+	let m = document.getElementById("message");
+
+	if (dungeon.monsterList.length == 0){	
+		m.textContent = "You cannot cast this spell right now!";
+		return;
+	}
+
+	if (dungeon.heroActions > 0 && hero.mana > 1){
+		let victim = dungeon.monsterList[0];
+		let monsterFound = false;
+		let combatFields = combatFieldsCreator();
+		for(j=0; j<dungeon.monsterList.length; j++){
+			for(i=0; i<combatFields.length; i++){
+				if(dungeon.monsterList[j].type == 1 && helpMap.fields.indexOf(combatFields[i]) == dungeon.monsterList[j].position){
+				victim = dungeon.monsterList[j];
+				monsterFound = true;
+				}
+			}
+		}
+		if(monsterFound == true){
+			let m = document.getElementById("message");
+			let diceNumber = rollDice();
+			if(diceNumber == 0){
+				m.textContent = "Your spell failed!";
+			}else{
+						
+				
+					
+						victim.sleep = 3;
+						m.textContent = "You put " + victim.name +  " into a deep slumber!";
+					}
+						
+						
+					
+						
+							
+					}
+				}
+			} 
+		reduceMana(2);dungeon.heroActions = dungeon.heroActions -1;
+			if (dungeon.heroActions < 1 && dungeon.heroMovement <1){
+				deactivateButtons();
+			}
+		} else {
+		m.textContent = "You cannot cast this spell right now!";
+		}			
+	} else {
+		m.textContent = "You cannot cast this spell right now!";
+	}
+};
+
+[20:41, 11/4/2025] Alexander Mano Gramm: Rainbow Wall!
+[20:58, 11/4/2025] Alexander Mano Gramm: erst würfeln ob rechts links oben unten
+dann testen ob 3 Felder entfernt keine Tür oder Monster ist,
+dann array für Felder der einen und anderen Seite erstellen
+bei Monster Bewegung oder Fernkampf prüfen ob auf falscher Seite -> bewegung wiederholen
+
+
+
+CLONK SONG https://www.youtube.com/watch?v=dWDQq0xXsCQ&list=RDdWDQq0xXsCQ&start_radio=1
+
