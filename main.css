@@ -71,7 +71,7 @@ body {
 .quodrant4{ 
     top: 50vw;
     left: 50vh;
-    background: url("Background-actions.gif");
+    background: url("BackgroundActions.gif");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -79,7 +79,7 @@ body {
 .quodrant5{ 
     top: 50vw;
     left: 50vh;
-    background: url("Background-messages.gif");
+    background: url("BackgroundMessages.gif");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -295,4 +295,5 @@ blockquote{
 	background: url("dragon22.gif"); 
 	background-size: 100%; 
 	background-repeat: no-repeat; 
+
 }
