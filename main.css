@@ -57,7 +57,7 @@ body {
 .quodrant1{
     top: 0;
     left: 50vh;
-    background: url("BackgroundClean.gif");
+    background: url("backgroundClean.gif");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -83,7 +83,7 @@ body {
 .quodrant4{ 
     top: 50vw;
     left: 50vh;
-    background: url("BackgroundActions.gif");
+    background: url("backgroundActions.gif");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -91,7 +91,7 @@ body {
 .quodrant5{ 
     top: 50vw;
     left: 50vh;
-    background: url("BackgroundMessages.gif");
+    background: url("backgroundMessages.gif");
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -309,6 +309,7 @@ blockquote{
 	background-repeat: no-repeat; 
 
 }
+
 
 
 
