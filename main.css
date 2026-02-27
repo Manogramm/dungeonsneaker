@@ -10,14 +10,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff; /* fallback */
+  background-image: url('IntroScreen.jpg');
+  background-size: cover;
   z-index: 1000;
-}
-
-#cover-screen img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /*QUADRANTS*/
@@ -313,4 +308,5 @@ blockquote{
 	background-repeat: no-repeat; 
 
 }
+
 
