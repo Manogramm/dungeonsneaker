@@ -16,6 +16,7 @@ body {
 .cover-screen {
   width: 100vw;
   height: 100vh;
+  background-image: url('IntroScreen.jpg');
   object-fit: cover; /* fills body exactly */
   z-index: 1000;
 }
@@ -313,6 +314,7 @@ blockquote{
 	background-repeat: no-repeat; 
 
 }
+
 
 
 
