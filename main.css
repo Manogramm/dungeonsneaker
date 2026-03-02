@@ -4,15 +4,19 @@ body {
     height: 100vh;
 }
 
-#cover-screen {
+/*#cover-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background-image: url('IntroScreen.jpg');
-  /*background-position: centre;*/
-  background-size: cover;
+  background-position: centre
+  background-size: cover;*/
+.cover-screen {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover; /* fills body exactly */
   z-index: 1000;
 }
 
@@ -309,6 +313,7 @@ blockquote{
 	background-repeat: no-repeat; 
 
 }
+
 
 
 
