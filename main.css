@@ -8,11 +8,11 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-image: url('IntroScreen.jpg');
-  background-position: centre;
-  background-size: 100%;
+  /*background-position: centre;*/
+  background-size: cover;
   z-index: 1000;
 }
 
@@ -309,6 +309,7 @@ blockquote{
 	background-repeat: no-repeat; 
 
 }
+
 
 
 
