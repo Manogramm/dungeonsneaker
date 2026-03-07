@@ -12,7 +12,7 @@ body {
   height: 100vh;
   background-image: url('IntroScreen.jpg');
   background-position: centre;
-  background-size: cover;
+  background-size: 100%;
   object-fit: fill;
   z-index: 1000;
 }
@@ -311,6 +311,7 @@ blockquote{
 	background-repeat: no-repeat; 
 
 }
+
 
 
 
